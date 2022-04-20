@@ -1,4 +1,0 @@
-test/cc/libevent_server.cc:12:9: fatal error: 'event.h' file not found
-#include<event.h>
-        ^~~~~~~~~
-1 error generated.

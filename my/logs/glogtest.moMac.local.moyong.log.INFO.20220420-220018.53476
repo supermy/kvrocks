@@ -1,6 +1,0 @@
-Log file created at: 2022/04/20 22:00:18
-Running on machine: moMac.local
-Running duration (h:mm:ss): 0:00:00
-Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
-I20220420 22:00:18.717237 335891968 glog2.cc:21] Found 0 arguments!
-F20220420 22:00:18.719017 335891968 glog2.cc:24] Check failed: access(argv[2], 0) != -1 No such file: 2

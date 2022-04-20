@@ -1,5 +1,0 @@
-In file included from test/cc/libevent_server.cc:12:
-/usr/local/include/event2/event.h:185:10: fatal error: 'event2/visibility.h' file not found
-#include <event2/visibility.h>
-         ^~~~~~~~~~~~~~~~~~~~~
-1 error generated.

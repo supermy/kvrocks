@@ -1,7 +1,0 @@
-Log file created at: 2022/04/20 22:52:01
-Running on machine: moMac.local
-Running duration (h:mm:ss): 0:00:00
-Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
-W20220420 22:52:01.909864 455286272 glog.cc:28] I am WARNING!
-E20220420 22:52:01.910221 455286272 glog.cc:29] I am ERROR!
-F20220420 22:52:01.910605 455286272 glog.cc:43] I am FATAL!

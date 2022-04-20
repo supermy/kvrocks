@@ -46,3 +46,6 @@ make_config.mk
 kvrocks2redis
 
 external/*
+
+my/logs/*
+my/target/*
