@@ -96,6 +96,7 @@ endif
 
 PROG=kvrocks
 
+# $(PROG) kvrocks
 all: $(PROG) kvrocks2redis
 	@echo ""
 	@printf $(MAKECOLOR)"Hint: It's a good idea to run 'make test' ;)"$(ENDCOLOR)

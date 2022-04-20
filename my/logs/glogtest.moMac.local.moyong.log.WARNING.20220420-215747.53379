@@ -1,0 +1,5 @@
+Log file created at: 2022/04/20 21:57:47
+Running on machine: moMac.local
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F20220420 21:57:47.646415 335400448 glog2.cc:24] Check failed: access(argv[2], 0) != -1 No such file: ERROR

@@ -1,0 +1,12 @@
+Log file created at: 2022/04/20 22:12:57
+Running on machine: moMac.local
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20220420 22:12:57.530730 121982464 glog2.cc:22] Found 0 arguments!
+I20220420 22:12:57.532469 121982464 glog2.cc:27] I am INFO!
+W20220420 22:12:57.532488 121982464 glog2.cc:28] I am WARNING!
+E20220420 22:12:57.532927 121982464 glog2.cc:29] I am ERROR!
+I20220420 22:12:57.533358 121982464 glog2.cc:32] [Custom log(VLOG)] Level 1!
+I20220420 22:12:57.533372 121982464 glog2.cc:33] [Custom log(VLOG)] Level 2!
+I20220420 22:12:57.533381 121982464 glog2.cc:34] [Custom log(VLOG)] Level 3!
+I20220420 22:12:57.533390 121982464 glog2.cc:35] [Custom log(VLOG)] Level 4! This is used for detailed message which need not to be printed each time.

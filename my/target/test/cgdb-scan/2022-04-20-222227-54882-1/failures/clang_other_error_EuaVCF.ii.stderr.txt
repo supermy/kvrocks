@@ -1,0 +1,4 @@
+test/cc/glog.cc:8:10: fatal error: 'glog/logging.h' file not found
+#include <glog/logging.h>
+         ^~~~~~~~~~~~~~~~
+1 error generated.

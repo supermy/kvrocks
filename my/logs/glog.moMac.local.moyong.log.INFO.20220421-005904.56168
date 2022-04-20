@@ -1,0 +1,15 @@
+Log file created at: 2022/04/21 00:59:04
+Running on machine: moMac.local
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20220421 00:59:04.472781 319671808 glog.cc:22] Found 0 arguments!
+I20220421 00:59:04.473976 319671808 glog.cc:27] I am INFO!
+W20220421 00:59:04.473987 319671808 glog.cc:28] I am WARNING!
+E20220421 00:59:04.474272 319671808 glog.cc:29] I am ERROR!
+I20220421 00:59:04.474547 319671808 glog.cc:32] Got the 1th cookie
+I20220421 00:59:04.474556 319671808 glog.cc:34] 
+I20220421 00:59:04.474568 319671808 glog.cc:38] [Custom log(VLOG)] Level 1!
+I20220421 00:59:04.474575 319671808 glog.cc:39] [Custom log(VLOG)] Level 2!
+I20220421 00:59:04.474578 319671808 glog.cc:40] [Custom log(VLOG)] Level 3!
+I20220421 00:59:04.474583 319671808 glog.cc:41] [Custom log(VLOG)] Level 4! This is used for detailed message which need not to be printed each time.
+F20220421 00:59:04.474589 319671808 glog.cc:43] I am FATAL!

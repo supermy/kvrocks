@@ -1,0 +1,1661 @@
+batch_extractor.o: batch_extractor.cc batch_extractor.h redis_db.h \
+  redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_bitmap.h redis_slot.h redis_reply.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h
+cluster.o: cluster.cc util.h status.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  lock_manager.h config.h config_type.h cron.h rw_lock.h task_runner.h \
+  replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h redis_metadata.h encoding.h \
+  log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h
+compact_filter.o: compact_filter.cc compact_filter.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_filter.h \
+  redis_metadata.h encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_bitmap.h redis_db.h
+compaction_checker.o: compaction_checker.cc compaction_checker.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h
+config.o: config.cc \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  config.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  config_type.h util.h status.h cron.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  lock_manager.h rw_lock.h task_runner.h replication.h \
+  redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  redis_reply.h redis_request.h redis_metadata.h encoding.h \
+  log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h
+cron.o: cron.cc cron.h status.h
+encoding.o: encoding.cc encoding.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h
+event_listener.o: event_listener.cc event_listener.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+geohash.o: geohash.cc geohash.h
+lock_manager.o: lock_manager.cc lock_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h
+log_collector.o: log_collector.cc log_collector.h redis_reply.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h
+main.o: main.cc \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/thread.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_connection.h redis_cmd.h redis_reply.h redis_request.h version.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_metadata.h encoding.h \
+  log_collector.h cluster.h redis_slot.h slot_migrate.h redis_db.h \
+  slot_import.h
+rand.o: rand.cc rand.h
+redis_bitmap.o: redis_bitmap.cc redis_bitmap.h redis_db.h \
+  redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_bitmap_string.h
+redis_bitmap_string.o: redis_bitmap_string.cc redis_bitmap_string.h \
+  redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_string.h
+redis_cmd.o: redis_cmd.cc \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  redis_reply.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_hash.h redis_bitmap.h redis_list.h redis_request.h \
+  redis_connection.h redis_set.h redis_string.h redis_zset.h redis_geo.h \
+  geohash.h redis_pubsub.h redis_sortedint.h redis_slot.h replication.h \
+  worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h log_collector.h cluster.h slot_migrate.h slot_import.h \
+  scripting.h /Users/moyong/project/kvrocks/external/lua/src/lauxlib.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lualib.h
+redis_connection.o: redis_connection.cc \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/perf_context.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/perf_level.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iostats_context.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  redis_reply.h status.h redis_request.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  lock_manager.h config.h config_type.h util.h cron.h rw_lock.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_metadata.h encoding.h \
+  log_collector.h cluster.h redis_slot.h slot_migrate.h redis_db.h \
+  slot_import.h
+redis_db.o: redis_db.cc redis_slot.h redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h slot_migrate.h slot_import.h
+redis_geo.o: redis_geo.cc redis_geo.h redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_zset.h geohash.h
+redis_hash.o: redis_hash.cc redis_hash.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  redis_db.h redis_metadata.h encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_list.o: redis_list.cc redis_list.h redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_metadata.o: redis_metadata.cc redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h redis_slot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h
+redis_pubsub.o: redis_pubsub.cc redis_pubsub.h redis_db.h \
+  redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_reply.o: redis_reply.cc redis_reply.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h
+redis_request.o: redis_request.cc \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/perf_context.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/perf_level.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iostats_context.h \
+  util.h status.h redis_reply.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  redis_request.h redis_connection.h redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  lock_manager.h config.h config_type.h cron.h rw_lock.h task_runner.h \
+  replication.h redis_metadata.h encoding.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h
+redis_set.o: redis_set.cc redis_set.h redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_slot.o: redis_slot.cc redis_slot.h util.h status.h
+redis_sortedint.o: redis_sortedint.cc redis_sortedint.h redis_db.h \
+  redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_string.o: redis_string.cc redis_string.h redis_db.h \
+  redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+redis_zset.o: redis_zset.cc redis_zset.h redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h
+replication.o: replication.cc replication.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h rocksdb_crc32c.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h redis_metadata.h encoding.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h
+scripting.o: scripting.cc scripting.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lauxlib.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lualib.h status.h \
+  redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  redis_reply.h redis_request.h util.h sha1.h server.h stats.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  lock_manager.h config.h config_type.h cron.h rw_lock.h task_runner.h \
+  replication.h redis_metadata.h encoding.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h rand.h
+server.o: server.cc server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  task_runner.h replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h redis_metadata.h encoding.h \
+  log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/convenience.h \
+  version.h compaction_checker.h scripting.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lauxlib.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lualib.h
+sha1.o: sha1.cc sha1.h
+slot_import.o: slot_import.cc slot_import.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_db.h redis_metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  redis_reply.h redis_request.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h
+slot_migrate.o: slot_migrate.cc slot_migrate.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_db.h redis_metadata.h encoding.h storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  server.h /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  redis_reply.h redis_request.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_import.h batch_extractor.h
+stats.o: stats.cc stats.h
+storage.o: storage.cc storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/filter_policy.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_system.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/io_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/table_properties_collectors.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rate_limiter.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/checkpoint.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/convenience.h \
+  redis_db.h redis_metadata.h encoding.h rocksdb_crc32c.h \
+  event_listener.h compact_filter.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_filter.h \
+  table_properties_collector.h
+table_properties_collector.o: table_properties_collector.cc \
+  table_properties_collector.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  encoding.h redis_metadata.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  task_runner.h replication.h redis_connection.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h log_collector.h worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  cluster.h redis_slot.h slot_migrate.h redis_db.h slot_import.h
+task_runner.o: task_runner.cc task_runner.h status.h util.h
+util.o: util.cc \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  util.h status.h
+worker.o: worker.cc worker.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/buffer.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/visibility.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event-config.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/util.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/bufferevent.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/listener.h \
+  /Users/moyong/project/kvrocks/external/libevent/include/event2/event.h \
+  storage.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/iterator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cleanable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/rocksdb_namespace.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/slice.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/listener.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compaction_job_stats.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/compression_type.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table_properties.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/types.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/metadata.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/advanced_options.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memtablerep.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/universal_compaction.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/comparator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/data_structure.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/env.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/thread_status.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/file_checksum.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_partitioner.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/version.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_buffer_manager.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/cache.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/memory_allocator.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/statistics.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/snapshot.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/sst_file_writer.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/transaction_log.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/write_batch_base.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/table.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/customizable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/configurable.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/backupable_db.h \
+  /Users/moyong/project/kvrocks/external/rocksdb/include/rocksdb/utilities/stackable_db.h \
+  status.h lock_manager.h config.h config_type.h util.h cron.h rw_lock.h \
+  redis_connection.h redis_cmd.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/logging.h \
+  /usr/local/include/gflags/gflags.h \
+  /usr/local/include/gflags/gflags_declare.h \
+  /usr/local/include/gflags/gflags_gflags.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/log_severity.h \
+  /Users/moyong/project/kvrocks/external/glog/src/glog/vlog_is_on.h \
+  redis_reply.h redis_request.h server.h \
+  /Users/moyong/project/kvrocks/external/lua/src/lua.h \
+  /Users/moyong/project/kvrocks/external/lua/src/luaconf.h stats.h \
+  task_runner.h replication.h redis_metadata.h encoding.h \
+  log_collector.h cluster.h redis_slot.h slot_migrate.h redis_db.h \
+  slot_import.h
