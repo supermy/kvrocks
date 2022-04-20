@@ -16,7 +16,13 @@ INSTALL= /usr/bin/install
 release_hdr := $(shell sh -c './mkreleasehdr.sh')
 detect_platform := $(shell sh -c '../build_detect_platform make_config.mk')
 include make_config.mk
-LDFLAGS+= $(PLATFORM_LDFLAGS)
+
+UNAME ?= $(shell uname)
+ifeq ($(UNAME),Darwin)
+    PLATFORM_LDFLAGS += -bundle -undefined dynamic_lookup 
+endif
+
+LDFLAGS+= $(PLATFORM_LDFLAGS) 
 EXTERNAL_LIBRARY_PATH= $(realpath ../external)
 GLOG_PATH= $(EXTERNAL_LIBRARY_PATH)/glog
 GLOG= $(GLOG_PATH)/.libs/libglog.a
@@ -109,6 +115,10 @@ lint:
 	cd ..; ./cppcheck.sh
 
 $(PROG): $(GLOG) $(LIBEVENT) $(ROCKSDB) $(LUA) $(KVROCKS_OBJS)
+	@echo ${LDFLAGS}
+	@echo ${FINAL_LIBS}
+	@echo ${JEMALLOC} ${GLOG} ${LIBEVENT} ${ROCKSDB} ${LUA} 
+	# @echo $(KVROCKS_OBJS)
 	$(KVROCKS_LD) -o $(PROG) $(KVROCKS_OBJS) $(FINAL_LIBS) $(LDFLAGS)
 
 $(GLOG):
