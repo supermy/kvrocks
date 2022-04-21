@@ -50,4 +50,6 @@ eventc:
 eventsbuf:
 	-make RUNCFG=" " COMPCFG="-levent -I/usr/local/include/" test/cc/event_buf_server
 eventcbuf:
-	-make RUNCFG=" 127.0.0.1 9999 " COMPCFG="-levent -I/usr/local/include/" test/cc/event_buf_client 
+	-make RUNCFG=" 127.0.0.1 9999 " COMPCFG="-levent -I/usr/local/include/" test/cc/event_buf_client
+
+ 
