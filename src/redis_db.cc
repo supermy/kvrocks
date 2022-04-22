@@ -14,6 +14,7 @@ Database::Database(Engine::Storage *storage, const std::string &ns) {
   namespace_ = ns;
 }
 
+// 获取元数据
 rocksdb::Status Database::GetMetadata(RedisType type, const Slice &ns_key, Metadata *metadata) {
   std::string old_metadata;
   metadata->Encode(&old_metadata);
@@ -21,11 +22,12 @@ rocksdb::Status Database::GetMetadata(RedisType type, const Slice &ns_key, Metad
   auto s = GetRawMetadata(ns_key, &bytes);
   if (!s.ok()) return s;
   metadata->Decode(bytes);
-
+// 数据是否过期
   if (metadata->Expired()) {
     metadata->Decode(old_metadata);
     return rocksdb::Status::NotFound(kErrMsgKeyExpired);
   }
+  // 数据类型是否一致
   if (metadata->Type() != type && (metadata->size > 0 || metadata->Type() == kRedisString)) {
     metadata->Decode(old_metadata);
     return rocksdb::Status::InvalidArgument(kErrMsgWrongType);

@@ -17,10 +17,7 @@ release_hdr := $(shell sh -c './mkreleasehdr.sh')
 detect_platform := $(shell sh -c '../build_detect_platform make_config.mk')
 include make_config.mk
 
-UNAME ?= $(shell uname)
-ifeq ($(UNAME),Darwin)
-    PLATFORM_LDFLAGS += -bundle -undefined dynamic_lookup 
-endif
+
 
 LDFLAGS+= $(PLATFORM_LDFLAGS) 
 EXTERNAL_LIBRARY_PATH= $(realpath ../external)
@@ -44,12 +41,17 @@ FINAL_CXXFLAGS+=  -I$(ROCKSDB_PATH)/include \
 				  -I.
 FINAL_LIBS+= $(GLOG) $(LIBEVENT) $(LIBEVENT_PTHREADS) $(ROCKSDB) $(LUA)
 
-# Operating system
-ifeq ($(uname_S),Darwin)
-	# Darwin
-	DISABLE_JEMALLOC=1
-else
-endif
+# # Operating system
+# ifeq ($(uname_S),Darwin)
+# 	# Darwin
+# 	DISABLE_JEMALLOC=1
+# else
+# endif
+
+# UNAME ?= $(shell uname)
+# ifeq ($(UNAME),Darwin)
+#     PLATFORM_LDFLAGS += -bundle -undefined dynamic_lookup 
+# endif
 
 ifndef DISABLE_JEMALLOC
 FINAL_CXXFLAGS+= -I$(JEMALLOC_PATH)/include
@@ -122,7 +124,9 @@ $(PROG): $(GLOG) $(LIBEVENT) $(ROCKSDB) $(LUA) $(KVROCKS_OBJS)
 	# @echo $(KVROCKS_OBJS)
 	$(KVROCKS_LD) -o $(PROG) $(KVROCKS_OBJS) $(FINAL_LIBS) $(LDFLAGS)
 
+#.libs 生成静态链接库
 $(GLOG):
+	echo $(MAKE)
 	cd $(GLOG_PATH);./autogen.sh; ./configure --disable-shared; \
 		$(MAKE) CXXFLAGS='-fPIC' -C $(GLOG_PATH)/
 

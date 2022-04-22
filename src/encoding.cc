@@ -1,3 +1,4 @@
+// 监测机器的 byte_order 依次进行数据写入与读取。
 #include "encoding.h"
 
 #include <limits.h>
@@ -5,7 +6,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <string.h>
-/* Byte ordering detection */
+/* Byte ordering detection 字节顺序检测*/
 #include <sys/types.h> /* This will likely define BYTE_ORDER */
 
 #include <string>
@@ -158,6 +159,7 @@ void PutDouble(std::string *dst, double value) {
   PutFixed64(dst, *ptr);
 }
 
+//从 input获取第一个字节放入到 value byte->pop
 bool GetFixed8(rocksdb::Slice *input, uint8_t *value) {
   const char *data;
   if (input->size() < sizeof(uint8_t)) {
@@ -203,6 +205,7 @@ bool GetDouble(rocksdb::Slice *input, double *value) {
   return true;
 }
 
+//字节排序是大端字节拷贝
 uint16_t DecodeFixed16(const char *ptr) {
   if (BYTE_ORDER == BIG_ENDIAN) {
     uint16_t value;

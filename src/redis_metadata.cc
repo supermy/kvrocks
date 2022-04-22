@@ -123,6 +123,7 @@ void ExtractNamespaceKey(Slice ns_key, std::string *ns, std::string *key, bool s
 void ComposeNamespaceKey(const Slice& ns, const Slice& key, std::string *ns_key, bool slot_id_encoded) {
   ns_key->clear();
 
+  // static_cast	用于良性转换，一般不会导致意外发生，风险很低。
   PutFixed8(ns_key, static_cast<uint8_t>(ns.size()));
   ns_key->append(ns.ToString());
 

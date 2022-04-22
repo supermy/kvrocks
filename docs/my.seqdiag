@@ -1,0 +1,19 @@
+Title: This is a title
+A->B: Hello
+A-->B: Hello
+
+Note left of A: Left note
+Note right of A: right note
+Note over A: over note
+Note over A,B: over both A and B
+
+participant B
+participant A
+A->B: Hello
+
+
+Title: Here is a title
+A->B: Normal line
+B-->C: Dashed line
+C->>D: Open arrow
+D-->>A: Dashed open arrow

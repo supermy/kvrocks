@@ -6,6 +6,7 @@
 #include <rocksdb/status.h>
 
 namespace Redis {
+  
 rocksdb::Status Hash::GetMetadata(const Slice &ns_key, HashMetadata *metadata) {
   return Database::GetMetadata(kRedisHash, ns_key, metadata);
 }

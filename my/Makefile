@@ -20,11 +20,18 @@ target/test/cc/%: test/cc/%.cc
 	# -g++ -fsyntax-only -Wall -std=c++11 $<  -I/usr/local/include/
 	scan-build -o target/test/cgdb-scan g++ -std=c++11 $< -o $@ -lpthread ${COMPCFG}
 
+target/src/cc/%: src/cc/%.cc
+	mkdir -p target/src/cc
+	# g++ -E -C $<
+	# g++ -MMD $<
+	# -g++ -fsyntax-only -Wall -std=c++11 $<  -I/usr/local/include/
+	scan-build -o target/src/cgdb-scan g++ -std=c++11 $< -o $@ -lpthread ${COMPCFG}
+
 
 # make test/c/c_test
 # .PHONY: 
 src/cc/%:target/src/cc/%
-	$<
+	$< ${RUNCFG}
 test/cc/%:target/test/cc/%
 	$< ${RUNCFG}
 
@@ -43,6 +50,7 @@ test/cc/%:target/test/cc/%
 
 glog:
 	-make RUNCFG=" 4 logs" COMPCFG="-lglog " test/cc/glog
+
 events:
 	-make RUNCFG=" " COMPCFG="-levent -I/usr/local/include/" test/cc/event_server
 eventc:
@@ -51,5 +59,12 @@ eventsbuf:
 	-make RUNCFG=" " COMPCFG="-levent -I/usr/local/include/" test/cc/event_buf_server
 eventcbuf:
 	-make RUNCFG=" 127.0.0.1 9999 " COMPCFG="-levent -I/usr/local/include/" test/cc/event_buf_client
+
+jemalloc:
+	-make RUNCFG=" " COMPCFG="-ljemalloc -I/usr/local/include/" test/cc/jemalloc
+	-make RUNCFG=" " COMPCFG=" -I/usr/local/include/" test/cc/jemalloc
+
+encoding:
+	-make RUNCFG=" 4 logs" COMPCFG="-lglog -I/usr/local/include/" src/cc/encoding
 
  

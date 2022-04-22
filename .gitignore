@@ -49,3 +49,5 @@ external/*
 
 my/logs/*
 my/target/*
+compactdb
+testsdb
