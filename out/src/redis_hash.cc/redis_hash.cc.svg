@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="208px" preserveAspectRatio="none" style="width:280px;height:208px;background:#FFFFFF;" version="1.1" viewBox="0 0 280 208" width="280px" zoomAndPan="magnify"><defs/><g><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="252" x="5" y="19">Dot Executable: /opt/local/bin/dot</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="134" x="5" y="35.4883">File does not exist</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="268" x="5" y="51.9766">Cannot find Graphviz. You should try</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="68.4648"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="74" x="5" y="84.9531">@startuml</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="52" x="5" y="101.4414">testdot</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="66" x="5" y="117.9297">@enduml</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="134.418"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="15" x="10" y="150.9063">or</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="167.3945"/><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="220" x="5" y="183.8828">java -jar plantuml.jar -testdot</text><text fill="#33FF02" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="0" x="10" y="200.3711"/><!--MD5=[4f852c99dbcce96756b790709511fd7c]
+@startuml
+set namespaceSeparator ::
+
+class BitmapMetadata {
+}
+
+class Metadata {
++ int flags
++ int expire
++ int version
++ int size
++ void InitVersionCounter()
++ enum RedisType Type()
++ int TTL()
++ int Time()
++ _Bool Expired()
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
++ _Bool operator==(const class Metadata & that)
+}
+
+class CompactionCheckerRange {
++ int Start
++ int Stop
++ _Bool Enabled()
+}
+
+class Config {
++ int port
++ int workers
++ int timeout
++ int loglevel
++ int backlog
++ int maxclients
++ int max_backup_to_keep
++ int max_backup_keep_hours
++ int slowlog_log_slower_than
++ int slowlog_max_len
++ _Bool daemonize
++ int supervised_mode
++ _Bool slave_readonly
++ _Bool slave_serve_stale_data
++ _Bool slave_empty_db_before_fullsync
++ int slave_priority
++ int max_db_size
++ int max_replication_mb
++ int max_io_mb
++ int max_bitmap_to_string_mb
++ _Bool master_use_repl_port
++ _Bool purge_backup_on_fullsync
++ _Bool auto_resize_block_and_sst
++ int fullsync_recv_file_delay
++ int binds
++ int dir
++ int db_dir
++ int backup_dir
++ int backup_sync_dir
++ int checkpoint_dir
++ int sync_checkpoint_dir
++ int log_dir
++ int pidfile
++ int db_name
++ int masterauth
++ int requirepass
++ int master_host
++ int master_port
++ class Cron compact_cron
++ class Cron bgsave_cron
++ struct CompactionCheckerRange compaction_checker_range
++ int tokens
++ _Bool slot_id_encoded
++ _Bool cluster_enabled
++ int migrate_speed
++ int pipeline_size
++ int sequence_gap
++ int profiling_sample_ratio
++ int profiling_sample_record_threshold_ms
++ int profiling_sample_record_max_len
++ int profiling_sample_commands
++ _Bool profiling_sample_all_commands
++ struct anonymous RocksDB
++ class Status Rewrite()
++ class Status Load(const int & path)
++ void Get(int key, int *values)
++ class Status Set(class Server *svr, int key, const int & value)
++ void SetMaster(const int & host, int port)
++ void ClearMaster()
++ class Status GetNamespace(const int & ns, int *token)
++ class Status AddNamespace(const int & ns, const int & token)
++ class Status SetNamespace(const int & ns, const int & token)
++ class Status DelNamespace(const int & ns)
+}
+
+class Config::anonymous {
++ int block_size
++ _Bool cache_index_and_filter_blocks
++ int metadata_block_cache_size
++ int subkey_block_cache_size
++ _Bool share_metadata_and_subkey_block_cache
++ int row_cache_size
++ int max_open_files
++ int write_buffer_size
++ int max_write_buffer_number
++ int max_background_compactions
++ int max_background_flushes
++ int max_sub_compactions
++ int stats_dump_period_sec
++ _Bool enable_pipelined_write
++ int delayed_write_rate
++ int compaction_readahead_size
++ int target_file_size_base
++ int WAL_ttl_seconds
++ int WAL_size_limit_MB
++ int max_total_wal_size
++ int level0_slowdown_writes_trigger
++ int level0_stop_writes_trigger
++ int level0_file_num_compaction_trigger
++ int compression
++ _Bool disable_auto_compactions
++ _Bool enable_blob_files
++ int min_blob_size
++ int blob_file_size
++ _Bool enable_blob_garbage_collection
++ int blob_garbage_collection_age_cutoff
++ int max_bytes_for_level_base
++ int max_bytes_for_level_multiplier
++ _Bool level_compaction_dynamic_level_bytes
+}
+
+class ConfigField {
++ int line_number
++ _Bool readonly
++ validate_fn validate
++ callback_fn callback
++ int ToString()
++ class Status Set(const int & v)
++ class Status ToNumber(int *n)
++ class Status ToBool(_Bool *b)
+}
+
+class StringField {
++ int ToString()
++ class Status Set(const int & v)
+}
+
+class IntField {
++ int min_
++ int max_
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class Int64Field {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class YesNoField {
++ int ToString()
++ class Status ToBool(_Bool *b)
++ class Status Set(const int & v)
+}
+
+class EnumField {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class Cron {
++ class Status SetScheduleTime(const int & args)
++ _Bool IsTimeMatch(struct tm *tm)
++ int ToString()
++ _Bool IsEnabled()
+}
+
+class Engine::Storage
+
+class Engine::Storage::ReplDataManager {
++ class Status GetFullReplDataInfo(class Engine::Storage *storage, int *files)
++ int OpenDataFile(class Engine::Storage *storage, const int & rel_file, int *file_size)
++ class Status CleanInvalidFiles(class Engine::Storage *storage, const int & dir, int valid_files)
++ struct Engine::Storage::ReplDataManager::MetaInfo ParseMetaAndSave(class Engine::Storage *storage, int meta_id, struct evbuffer *evbuf)
++ int NewTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ class Status SwapTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ _Bool FileExists(class Engine::Storage *storage, const int & dir, const int & repl_file, int crc)
+}
+
+class Engine::Storage::ReplDataManager::CheckpointInfo {
++ int is_creating
++ int create_time
++ int access_time
+}
+
+class Engine::Storage::ReplDataManager::MetaInfo {
++ int timestamp
++ int seq
++ int meta_data
+}
+
+class FieldValue {
++ int field
++ int value
+}
+
+class HashMetadata {
+}
+
+class InternalKey {
++ class rocksdb::Slice GetNamespace()
++ class rocksdb::Slice GetKey()
++ class rocksdb::Slice GetSubKey()
++ int GetVersion()
++ void Encode(int *out)
++ _Bool operator==(const class InternalKey & that)
+}
+
+class KeyNumStats {
++ int n_key
++ int n_expires
++ int n_expired
++ int avg_ttl
+}
+
+class ListMetadata {
++ int head
++ int tail
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
+}
+
+class LockGuard {
+}
+
+class LockManager {
++ unsigned int Size()
++ void Lock(const rocksdb::Slice & key)
++ void UnLock(const rocksdb::Slice & key)
+}
+
+class RWLock::ReadLock {
+}
+
+class RWLock::ReadWriteLock {
++ void LockWrite()
++ void UnLockWrite()
++ void LockRead()
++ void UnLockRead()
+}
+
+class RWLock::WriteLock {
+}
+
+class Redis::Database {
++ rocksdb::Status GetMetadata(enum RedisType type, const class rocksdb::Slice & ns_key, class Metadata *metadata)
++ rocksdb::Status GetRawMetadata(const class rocksdb::Slice & ns_key, int *bytes)
++ rocksdb::Status GetRawMetadataByUserKey(const class rocksdb::Slice & user_key, int *bytes)
++ rocksdb::Status Expire(const class rocksdb::Slice & user_key, int timestamp)
++ rocksdb::Status Del(const class rocksdb::Slice & user_key)
++ rocksdb::Status Exists(const int & keys, int *ret)
++ rocksdb::Status TTL(const class rocksdb::Slice & user_key, int *ttl)
++ rocksdb::Status Type(const class rocksdb::Slice & user_key, enum RedisType *type)
++ rocksdb::Status Dump(const class rocksdb::Slice & user_key, int *infos)
++ rocksdb::Status FlushDB()
++ rocksdb::Status FlushAll()
++ void GetKeyNumStats(const int & prefix, struct KeyNumStats *stats)
++ void Keys(int prefix, int *keys, struct KeyNumStats *stats)
++ rocksdb::Status Scan(const int & cursor, int limit, const int & prefix, int *keys, int *end_cursor)
++ rocksdb::Status RandomKey(const int & cursor, int *key)
++ void AppendNamespacePrefix(const class rocksdb::Slice & user_key, int *output)
++ rocksdb::Status FindKeyRangeWithPrefix(const int & prefix, const int & prefix_end, int *begin, int *end, rocksdb::ColumnFamilyHandle *cf_handle)
++ rocksdb::Status ClearKeysOfSlot(const rocksdb::Slice & ns, int slot)
++ rocksdb::Status GetSlotKeysInfo(int slot, int *slotskeys, int *keys, int count)
+}
+
+class Redis::SubKeyScanner {
++ rocksdb::Status Scan(enum RedisType type, const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & subkey_prefix, int *keys, int *values)
+}
+
+class Redis::Hash {
++ rocksdb::Status Size(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status Get(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, int *value)
++ rocksdb::Status Set(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, const class rocksdb::Slice & value, int *ret)
++ rocksdb::Status SetNX(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, class rocksdb::Slice value, int *ret)
++ rocksdb::Status Delete(const class rocksdb::Slice & user_key, const int & fields, int *ret)
++ rocksdb::Status IncrBy(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, int increment, int *ret)
++ rocksdb::Status IncrByFloat(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, double increment, double *ret)
++ rocksdb::Status MSet(const class rocksdb::Slice & user_key, const int & field_values, _Bool nx, int *ret)
++ rocksdb::Status MGet(const class rocksdb::Slice & user_key, const int & fields, int *values, int *statuses)
++ rocksdb::Status GetAll(const class rocksdb::Slice & user_key, int *field_values, enum HashFetchType type)
++ rocksdb::Status Scan(const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & field_prefix, int *fields, int *values)
+}
+
+class Redis::Database::LatestSnapShot {
++ const rocksdb::Snapshot *GetSnapShot()
+}
+
+class Redis::WriteBatchLogData {
++ enum RedisType GetRedisType()
++ int *GetArguments()
++ int Encode()
++ class Status Decode(const rocksdb::Slice & blob)
+}
+
+class Scheduler {
++ int minute
++ int hour
++ int mday
++ int month
++ int wday
++ int ToString()
+}
+
+class SetMetadata {
+}
+
+class SortedintMetadata {
+}
+
+class Status {
++ _Bool IsOK()
++ _Bool IsNotFound()
++ _Bool IsImorting()
++ int Msg()
++ class Status OK()
+}
+
+class ZSetMetadata {
+}
+
+class configEnum {
++ const char *name
++ const int val
+}
+
+StringField -up-|> ConfigField
+IntField -up-|> ConfigField
+Int64Field -up-|> ConfigField
+YesNoField -up-|> ConfigField
+EnumField -up-|> ConfigField
+HashMetadata -up-|> Metadata
+ListMetadata -up-|> Metadata
+Redis::SubKeyScanner -up-|> Redis::Database
+Redis::Hash -up-|> Redis::SubKeyScanner
+SetMetadata -up-|> Metadata
+BitmapMetadata -up-|> Metadata
+SortedintMetadata -up-|> Metadata
+ZSetMetadata -up-|> Metadata
+@enduml
+
+PlantUML version 1.2022.0(Wed Jan 12 00:16:42 CST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: zh
+Country: CN
+--></g></svg>

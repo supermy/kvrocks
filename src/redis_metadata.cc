@@ -105,10 +105,12 @@ bool InternalKey::operator==(const InternalKey &that) const {
   return version_ == that.version_;
 }
 
+// 提取 ns key
 void ExtractNamespaceKey(Slice ns_key, std::string *ns, std::string *key, bool slot_id_encoded) {
   uint8_t namespace_size;
   GetFixed8(&ns_key, &namespace_size);
 
+  //todo str.slice(start,end)，截取str从start到end的所有字符（包含起始位置，不包含结束位置）
   *ns = ns_key.ToString().substr(0, namespace_size);
   ns_key.remove_prefix(namespace_size);
 
@@ -119,10 +121,10 @@ void ExtractNamespaceKey(Slice ns_key, std::string *ns, std::string *key, bool s
 
   *key = ns_key.ToString();
 }
-
+// 组合主键
 void ComposeNamespaceKey(const Slice& ns, const Slice& key, std::string *ns_key, bool slot_id_encoded) {
   ns_key->clear();
-
+  // ns_size+16bit slot_id+key
   // static_cast	用于良性转换，一般不会导致意外发生，风险很低。
   PutFixed8(ns_key, static_cast<uint8_t>(ns.size()));
   ns_key->append(ns.ToString());
@@ -134,7 +136,7 @@ void ComposeNamespaceKey(const Slice& ns, const Slice& key, std::string *ns_key,
 
   ns_key->append(key.ToString());
 }
-
+// 组合prefix ns+slot
 void ComposeSlotKeyPrefix(const Slice& ns, int slotid, std::string *output) {
   output->clear();
 
@@ -152,6 +154,7 @@ Metadata::Metadata(RedisType type, bool generate_version) {
   if (generate_version) version = generateVersion();
 }
 
+// 解码 meta key
 rocksdb::Status Metadata::Decode(const std::string &bytes) {
   // flags(1byte) + expire (4byte)
   if (bytes.size() < 5) {
@@ -168,6 +171,7 @@ rocksdb::Status Metadata::Decode(const std::string &bytes) {
   return rocksdb::Status::OK();
 }
 
+// 编码 metakey
 void Metadata::Encode(std::string *dst) {
   PutFixed8(dst, flags);
   PutFixed32(dst, (uint32_t) expire);
@@ -195,6 +199,7 @@ uint64_t Metadata::generateVersion() {
   return (version << VersionCounterBits) + (counter%(1 << VersionCounterBits));
 }
 
+// 操作符重载
 bool Metadata::operator==(const Metadata &that) const {
   if (flags != that.flags) return false;
   if (expire != that.expire) return false;
@@ -205,10 +210,12 @@ bool Metadata::operator==(const Metadata &that) const {
   return true;
 }
 
+// 获取数据类型
 RedisType Metadata::Type() const {
   return static_cast<RedisType>(flags & (uint8_t)0x0f);
 }
 
+// 有效时间 ttl 
 int32_t Metadata::TTL() const {
   int64_t now;
   rocksdb::Env::Default()->GetCurrentTime(&now);
@@ -224,6 +231,7 @@ timeval Metadata::Time() const {
   return created_at;
 }
 
+// 设置有效期 ?
 bool Metadata::Expired() const {
   int64_t now;
   rocksdb::Env::Default()->GetCurrentTime(&now);
@@ -233,11 +241,13 @@ bool Metadata::Expired() const {
   return Type() != kRedisString && size == 0;
 }
 
+// 使用UINT64_MAXfrom中的常量stdint.h并自己进行溢出预测。
 ListMetadata::ListMetadata(bool generate_version) : Metadata(kRedisList, generate_version) {
   head = UINT64_MAX/2;
   tail = head;
 }
 
+//  meta-val 编码
 void ListMetadata::Encode(std::string *dst) {
   Metadata::Encode(dst);
   PutFixed64(dst, head);

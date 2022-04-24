@@ -23,6 +23,16 @@ namespace Redis {
 class Connection;
 struct CommandAttributes;
 
+// 0UL--------无符号长整型0
+// 1UL--------无符号长整型1
+// 应用：
+// #define BIT(n) (1ul << (n))
+// 举个例子，1<<3，其实就是0x08
+// 用二进制表示更直接：
+  // 1<<0：0b00000001
+  // 1<<1：0b00000010
+  // 1<<2：0b00000100
+  // 1<<3：0b00001000
 enum CommandFlags {
   kCmdWrite         = (1ULL<<0),  // "write" flag
   kCmdReadOnly      = (1ULL<<1),  // "read-only" flag
@@ -62,7 +72,7 @@ using CommanderFactory = std::function<std::unique_ptr<Commander>()>;
 
 struct CommandAttributes {
   std::string name;
-  int arity;
+  int arity;//参数数量
   std::string description;
   uint64_t flags;
   int first_key;

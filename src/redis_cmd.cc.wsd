@@ -1,0 +1,1722 @@
+@startuml
+set namespaceSeparator ::
+
+class BitmapMetadata {
+}
+
+class Metadata {
++ int flags
++ int expire
++ int version
++ int size
++ void InitVersionCounter()
++ enum RedisType Type()
++ int TTL()
++ int Time()
++ _Bool Expired()
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
++ _Bool operator==(const class Metadata & that)
+}
+
+class Cluster {
++ class Status SetClusterNodes(const int & nodes_str, int version, _Bool force)
++ class Status GetClusterNodes(int *nodes_str)
++ class Status SetNodeId(int node_id)
++ class Status SetSlot(int slot, int node_id, int version)
++ class Status SetSlotMigrated(int slot, const int & ip_port)
++ class Status SetSlotImported(int slot)
++ class Status GetSlotsInfo(int *slot_infos)
++ class Status GetClusterInfo(int *cluster_infos)
++ int GetVersion()
++ _Bool IsValidSlot(int slot)
++ _Bool IsNotMaster()
++ _Bool IsWriteForbiddenSlot(int slot)
++ class Status CanExecByMySelf(const Redis::CommandAttributes *attributes, const int & cmd_tokens, Redis::Connection *conn)
++ void SetMasterSlaveRepl()
++ class Status MigrateSlot(int slot, const int & dst_node_id)
++ class Status ImportSlot(Redis::Connection *conn, int slot, int state)
++ int GetMyId()
++ _Bool SubCommandIsExecExclusive(const int & subcommand)
+}
+
+class ClusterNode {
++ int id_
++ int host_
++ int port_
++ int role_
++ int master_id_
++ int slots_info_
++ int slots_
++ int replicas
++ int importing_slot_
+}
+
+class CompactionCheckerRange {
++ int Start
++ int Stop
++ _Bool Enabled()
+}
+
+class Config {
++ int port
++ int workers
++ int timeout
++ int loglevel
++ int backlog
++ int maxclients
++ int max_backup_to_keep
++ int max_backup_keep_hours
++ int slowlog_log_slower_than
++ int slowlog_max_len
++ _Bool daemonize
++ int supervised_mode
++ _Bool slave_readonly
++ _Bool slave_serve_stale_data
++ _Bool slave_empty_db_before_fullsync
++ int slave_priority
++ int max_db_size
++ int max_replication_mb
++ int max_io_mb
++ int max_bitmap_to_string_mb
++ _Bool master_use_repl_port
++ _Bool purge_backup_on_fullsync
++ _Bool auto_resize_block_and_sst
++ int fullsync_recv_file_delay
++ int binds
++ int dir
++ int db_dir
++ int backup_dir
++ int backup_sync_dir
++ int checkpoint_dir
++ int sync_checkpoint_dir
++ int log_dir
++ int pidfile
++ int db_name
++ int masterauth
++ int requirepass
++ int master_host
++ int master_port
++ class Cron compact_cron
++ class Cron bgsave_cron
++ struct CompactionCheckerRange compaction_checker_range
++ int tokens
++ _Bool slot_id_encoded
++ _Bool cluster_enabled
++ int migrate_speed
++ int pipeline_size
++ int sequence_gap
++ int profiling_sample_ratio
++ int profiling_sample_record_threshold_ms
++ int profiling_sample_record_max_len
++ int profiling_sample_commands
++ _Bool profiling_sample_all_commands
++ struct anonymous RocksDB
++ class Status Rewrite()
++ class Status Load(const int & path)
++ void Get(int key, int *values)
++ class Status Set(class Server *svr, int key, const int & value)
++ void SetMaster(const int & host, int port)
++ void ClearMaster()
++ class Status GetNamespace(const int & ns, int *token)
++ class Status AddNamespace(const int & ns, const int & token)
++ class Status SetNamespace(const int & ns, const int & token)
++ class Status DelNamespace(const int & ns)
+}
+
+class Config::anonymous {
++ int block_size
++ _Bool cache_index_and_filter_blocks
++ int metadata_block_cache_size
++ int subkey_block_cache_size
++ _Bool share_metadata_and_subkey_block_cache
++ int row_cache_size
++ int max_open_files
++ int write_buffer_size
++ int max_write_buffer_number
++ int max_background_compactions
++ int max_background_flushes
++ int max_sub_compactions
++ int stats_dump_period_sec
++ _Bool enable_pipelined_write
++ int delayed_write_rate
++ int compaction_readahead_size
++ int target_file_size_base
++ int WAL_ttl_seconds
++ int WAL_size_limit_MB
++ int max_total_wal_size
++ int level0_slowdown_writes_trigger
++ int level0_stop_writes_trigger
++ int level0_file_num_compaction_trigger
++ int compression
++ _Bool disable_auto_compactions
++ _Bool enable_blob_files
++ int min_blob_size
++ int blob_file_size
++ _Bool enable_blob_garbage_collection
++ int blob_garbage_collection_age_cutoff
++ int max_bytes_for_level_base
++ int max_bytes_for_level_multiplier
++ _Bool level_compaction_dynamic_level_bytes
+}
+
+class ConfigField {
++ int line_number
++ _Bool readonly
++ validate_fn validate
++ callback_fn callback
++ int ToString()
++ class Status Set(const int & v)
++ class Status ToNumber(int *n)
++ class Status ToBool(_Bool *b)
+}
+
+class StringField {
++ int ToString()
++ class Status Set(const int & v)
+}
+
+class IntField {
++ int min_
++ int max_
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class Int64Field {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class YesNoField {
++ int ToString()
++ class Status ToBool(_Bool *b)
++ class Status Set(const int & v)
+}
+
+class EnumField {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class ConnContext {
++ class Worker *owner
++ int fd
+}
+
+class Cron {
++ class Status SetScheduleTime(const int & args)
++ _Bool IsTimeMatch(struct tm *tm)
++ int ToString()
++ _Bool IsEnabled()
+}
+
+class DBScanInfo {
++ int last_scan_time
++ struct KeyNumStats key_num_stats
++ _Bool is_scanning
+}
+
+class Engine::Storage
+
+class Engine::Storage::ReplDataManager {
++ class Status GetFullReplDataInfo(class Engine::Storage *storage, int *files)
++ int OpenDataFile(class Engine::Storage *storage, const int & rel_file, int *file_size)
++ class Status CleanInvalidFiles(class Engine::Storage *storage, const int & dir, int valid_files)
++ struct Engine::Storage::ReplDataManager::MetaInfo ParseMetaAndSave(class Engine::Storage *storage, int meta_id, struct evbuffer *evbuf)
++ int NewTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ class Status SwapTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ _Bool FileExists(class Engine::Storage *storage, const int & dir, const int & repl_file, int crc)
+}
+
+class Engine::Storage::ReplDataManager::CheckpointInfo {
++ int is_creating
++ int create_time
++ int access_time
+}
+
+class Engine::Storage::ReplDataManager::MetaInfo {
++ int timestamp
++ int seq
++ int meta_data
+}
+
+class FeedSlaveThread {
++ class Status Start()
++ void Stop()
++ void Join()
++ _Bool IsStopped()
++ Redis::Connection *GetConn()
++ int GetCurrentReplSeq()
+}
+
+class FieldValue {
++ int field
++ int value
+}
+
+class GeoHashHelper {
++ int EstimateStepsByRadius(double range_meters, double lat)
++ int BoundingBox(double longitude, double latitude, double radius_meters, double *bounds)
++ GeoHashRadius GetAreasByRadius(double longitude, double latitude, double radius_meters)
++ GeoHashRadius GetAreasByRadiusWGS84(double longitude, double latitude, double radius_meters)
++ GeoHashFix52Bits Align52Bits(const GeoHashBits & hash)
++ double GetDistance(double lon1d, double lat1d, double lon2d, double lat2d)
++ int GetDistanceIfInRadius(double x1, double y1, double x2, double y2, double radius, double *distance)
++ int GetDistanceIfInRadiusWGS84(double x1, double y1, double x2, double y2, double radius, double *distance)
+}
+
+class GeoPoint {
++ double longitude
++ double latitude
++ int member
++ double dist
++ double score
+}
+
+class HashMetadata {
+}
+
+class InternalKey {
++ class rocksdb::Slice GetNamespace()
++ class rocksdb::Slice GetKey()
++ class rocksdb::Slice GetSubKey()
++ int GetVersion()
++ void Encode(int *out)
++ _Bool operator==(const class InternalKey & that)
+}
+
+class KeyNumStats {
++ int n_key
++ int n_expires
++ int n_expired
++ int avg_ttl
+}
+
+class KeyWeight {
++ int key
++ double weight
+}
+
+class ListMetadata {
++ int head
++ int tail
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
+}
+
+class LockGuard {
+}
+
+class LockManager {
++ unsigned int Size()
++ void Lock(const rocksdb::Slice & key)
++ void UnLock(const rocksdb::Slice & key)
+}
+
+class LogCollector <T> {
++ int Size()
++ void Reset()
++ void SetMaxEntries(int max_entries)
++ void PushEntry(T *entry)
++ int GetLatestEntries(int cnt)
+}
+
+class PerfEntry {
++ int id
++ int time
++ int duration
++ int cmd_name
++ int perf_context
++ int iostats_context
++ int ToRedisString()
+}
+
+class RWLock::ReadLock {
+}
+
+class RWLock::ReadWriteLock {
++ void LockWrite()
++ void UnLockWrite()
++ void LockRead()
++ void UnLockRead()
+}
+
+class RWLock::WriteLock {
+}
+
+class Redis::Bitmap {
++ rocksdb::Status GetBit(const class rocksdb::Slice & user_key, int offset, _Bool *bit)
++ rocksdb::Status GetString(const class rocksdb::Slice & user_key, const int max_btos_size, int *value)
++ rocksdb::Status SetBit(const class rocksdb::Slice & user_key, int offset, _Bool new_bit, _Bool *old_bit)
++ rocksdb::Status BitCount(const class rocksdb::Slice & user_key, int start, int stop, int *cnt)
++ rocksdb::Status BitPos(const class rocksdb::Slice & user_key, _Bool bit, int start, int stop, _Bool stop_given, int *pos)
++ rocksdb::Status BitOp(enum BitOpFlags op_flag, const int & op_name, const class rocksdb::Slice & user_key, const int & op_keys, int *len)
++ _Bool GetBitFromValueAndOffset(const int & value, const int offset)
++ _Bool IsEmptySegment(const class rocksdb::Slice & segment)
+}
+
+class Redis::Database {
++ rocksdb::Status GetMetadata(enum RedisType type, const class rocksdb::Slice & ns_key, class Metadata *metadata)
++ rocksdb::Status GetRawMetadata(const class rocksdb::Slice & ns_key, int *bytes)
++ rocksdb::Status GetRawMetadataByUserKey(const class rocksdb::Slice & user_key, int *bytes)
++ rocksdb::Status Expire(const class rocksdb::Slice & user_key, int timestamp)
++ rocksdb::Status Del(const class rocksdb::Slice & user_key)
++ rocksdb::Status Exists(const int & keys, int *ret)
++ rocksdb::Status TTL(const class rocksdb::Slice & user_key, int *ttl)
++ rocksdb::Status Type(const class rocksdb::Slice & user_key, enum RedisType *type)
++ rocksdb::Status Dump(const class rocksdb::Slice & user_key, int *infos)
++ rocksdb::Status FlushDB()
++ rocksdb::Status FlushAll()
++ void GetKeyNumStats(const int & prefix, struct KeyNumStats *stats)
++ void Keys(int prefix, int *keys, struct KeyNumStats *stats)
++ rocksdb::Status Scan(const int & cursor, int limit, const int & prefix, int *keys, int *end_cursor)
++ rocksdb::Status RandomKey(const int & cursor, int *key)
++ void AppendNamespacePrefix(const class rocksdb::Slice & user_key, int *output)
++ rocksdb::Status FindKeyRangeWithPrefix(const int & prefix, const int & prefix_end, int *begin, int *end, rocksdb::ColumnFamilyHandle *cf_handle)
++ rocksdb::Status ClearKeysOfSlot(const rocksdb::Slice & ns, int slot)
++ rocksdb::Status GetSlotKeysInfo(int slot, int *slotskeys, int *keys, int count)
+}
+
+class Redis::CommandAppend {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::Commander {
++ void SetAttributes(const struct Redis::CommandAttributes *attributes)
++ const struct Redis::CommandAttributes *GetAttributes()
++ void SetArgs(const int & args)
++ const int *Args()
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandAttributes
+
+class Redis::CommandAuth {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandBGSave {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandBLPop {
+}
+
+class Redis::CommandBPop {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
++ rocksdb::Status TryPopFromList()
++ void WriteCB(struct bufferevent *bev, void *ctx)
++ void EventCB(struct bufferevent *bev, int events, void *ctx)
++ void TimerCB(int , int events, void *ctx)
+}
+
+class Redis::CommandBRPop {
+}
+
+class Redis::CommandBitCount {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandBitOp {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandBitPos {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandCAD {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandCAS {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandClient {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandCluster {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandClusterX {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandCommand {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandCompact {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandConfig {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDBName {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDBSize {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDebug {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDecr {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDecrBy {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDel {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandDiscard {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandEcho {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandEval {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandEvalSHA {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandExec {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandExists {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandExpire {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandExpireAt {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandFetchFile {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandFetchMeta {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandFlushAll {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandFlushBackup {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandFlushDB {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoAdd {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoBase {
++ class Status ParseDistanceUnit(const int & param)
++ class Status ParseLongLat(const int & longitude_para, const int & latitude_para, double *longitude, double *latitude)
++ double GetDistanceByUnit(double distance)
++ double GetRadiusMeters(double radius)
++ double GetUnitConversion()
+}
+
+class Redis::CommandGeoDist {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoHash {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoPos {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoRadius {
++ class Status Parse(const int & args)
++ class Status ParseRadiusExtraOption(int i)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
++ int GenerateOutput(const int & geo_points)
+}
+
+class Redis::CommandGeoRadiusByMember {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGeoRadiusByMemberReadonly {
+}
+
+class Redis::CommandGeoRadiusReadonly {
+}
+
+class Redis::CommandGet {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGetBit {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGetRange {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandGetSet {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHDel {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHExists {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHGet {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHGetAll {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHIncrBy {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHIncrByFloat {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHKeys {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHLen {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHMGet {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHMSet {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHScan {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSubkeyScanBase {
++ class Status Parse(const int & args)
++ int GenerateOutput(const int & fields, const int & values)
+}
+
+class Redis::CommandScanBase {
++ class Status ParseMatchAndCountParam(const int & type, int value)
++ void ParseCursor(const int & param)
++ int GenerateOutput(const int & keys)
+}
+
+class Redis::CommandHSetNX {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHStrlen {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandHVals {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandIncr {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandIncrBy {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandIncrByFloat {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandInfo {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandKeys {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLIndex {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLInsert {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLLen {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLPop {
+}
+
+class Redis::CommandPop {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLPush {
+}
+
+class Redis::CommandPush {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLPushX {
+}
+
+class Redis::CommandLRange {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLRem {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLSet {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandLTrim {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandMGet {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandMSet {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandMSetNX {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandMonitor {
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandMulti {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandNamespace {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandObject {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPExpire {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPExpireAt {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPSetEX {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPSubscribe {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPSync {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPTTL {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPUnSubscribe {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPerfLog {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPersist {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPing {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPubSub {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandPublish {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandQuit {
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandRPop {
+}
+
+class Redis::CommandRPopLPUSH {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandRPush {
+}
+
+class Redis::CommandRPushX {
+}
+
+class Redis::CommandRandomKey {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandReplConf {
++ class Status Parse(const int & args)
++ class Status ParseParam(const int & option, const int & value)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandRole {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSAdd {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSCard {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSDiff {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSDiffStore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSInter {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSInterStore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSIsMember {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSMembers {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSMove {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSPop {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSRandMember {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSRem {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSScan {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSUnion {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSUnionStore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandScan {
++ class Status Parse(const int & args)
++ int GenerateOutput(const int & keys, int end_cursor)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandScript {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSelect {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSet {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSetBit {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSetEX {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSetNX {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSetRange {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandShutdown {
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSlaveOf {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSlowlog {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *srv, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintAdd {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintCard {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintExists {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintRange {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintRevRange {
+}
+
+class Redis::CommandSortedintRangeByValue {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSortedintRevRangeByValue {
+}
+
+class Redis::CommandSortedintRem {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandStats {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandStrlen {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandSubscribe {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandTTL {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandType {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandUnSubscribe {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZAdd {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZCard {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZCount {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZIncrBy {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZInterStore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZUnionStore {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZLexCount {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZMScore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZPop {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZPopMin {
+}
+
+class Redis::CommandZPopMax {
+}
+
+class Redis::CommandZRange {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRevRange {
+}
+
+class Redis::CommandZRangeByLex {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRevRangeByLex {
+}
+
+class Redis::CommandZRangeByScore {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRevRangeByScore {
+}
+
+class Redis::CommandZRank {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRevRank {
+}
+
+class Redis::CommandZRem {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRemRangeByLex {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRemRangeByRank {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZRemRangeByScore {
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZScan {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::CommandZScore {
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::Connection
+
+class Redis::Database::LatestSnapShot {
++ const rocksdb::Snapshot *GetSnapShot()
+}
+
+class Redis::Geo {
++ rocksdb::Status Add(const class rocksdb::Slice & user_key, int *geo_points, int *ret)
++ rocksdb::Status Dist(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member_1, const class rocksdb::Slice & member_2, double *dist)
++ rocksdb::Status Hash(const class rocksdb::Slice & user_key, const int & members, int *geoHashes)
++ rocksdb::Status Pos(const class rocksdb::Slice & user_key, const int & members, int *geo_points)
++ rocksdb::Status Radius(const class rocksdb::Slice & user_key, double longitude, double latitude, double radius_meters, int count, enum DistanceSort sort, const int & store_key, _Bool store_distance, double unit_conversion, int *geo_points)
++ rocksdb::Status RadiusByMember(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, double radius_meters, int count, enum DistanceSort sort, const int & store_key, _Bool store_distance, double unit_conversion, int *geo_points)
++ rocksdb::Status Get(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, struct GeoPoint *geo_point)
++ rocksdb::Status MGet(const class rocksdb::Slice & user_key, const int & members, int *geo_points)
++ int EncodeGeoHash(double longitude, double latitude)
+}
+
+class Redis::ZSet {
++ rocksdb::Status Add(const class rocksdb::Slice & user_key, int flags, int *mscores, int *ret)
++ rocksdb::Status Card(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status Count(const class rocksdb::Slice & user_key, const ZRangeSpec & spec, int *ret)
++ rocksdb::Status IncrBy(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, double increment, double *score)
++ rocksdb::Status Range(const class rocksdb::Slice & user_key, int start, int stop, int flags, int *mscores)
++ rocksdb::Status RangeByScore(const class rocksdb::Slice & user_key, ZRangeSpec spec, int *mscores, int *size)
++ rocksdb::Status RangeByLex(const class rocksdb::Slice & user_key, struct ZRangeLexSpec spec, int *members, int *size)
++ rocksdb::Status Rank(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, _Bool reversed, int *ret)
++ rocksdb::Status Remove(const class rocksdb::Slice & user_key, const int & members, int *ret)
++ rocksdb::Status RemoveRangeByScore(const class rocksdb::Slice & user_key, ZRangeSpec spec, int *ret)
++ rocksdb::Status RemoveRangeByLex(const class rocksdb::Slice & user_key, struct ZRangeLexSpec spec, int *ret)
++ rocksdb::Status RemoveRangeByRank(const class rocksdb::Slice & user_key, int start, int stop, int *ret)
++ rocksdb::Status Pop(const class rocksdb::Slice & user_key, int count, _Bool min, int *mscores)
++ rocksdb::Status Score(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, double *score)
++ class Status ParseRangeSpec(const int & min, const int & max, ZRangeSpec *spec)
++ class Status ParseRangeLexSpec(const int & min, const int & max, struct ZRangeLexSpec *spec)
++ rocksdb::Status Scan(const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & member_prefix, int *members, int *scores)
++ rocksdb::Status Overwrite(const class rocksdb::Slice & user_key, const int & mscores)
++ rocksdb::Status InterStore(const class rocksdb::Slice & dst, const int & keys_weights, enum AggregateMethod aggregate_method, int *size)
++ rocksdb::Status UnionStore(const class rocksdb::Slice & dst, const int & keys_weights, enum AggregateMethod aggregate_method, int *size)
++ rocksdb::Status MGet(const class rocksdb::Slice & user_key, const int & members, int *mscores)
++ rocksdb::Status GetMetadata(const class rocksdb::Slice & ns_key, class ZSetMetadata *metadata)
+}
+
+class Redis::SubKeyScanner {
++ rocksdb::Status Scan(enum RedisType type, const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & subkey_prefix, int *keys, int *values)
+}
+
+class Redis::Hash {
++ rocksdb::Status Size(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status Get(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, int *value)
++ rocksdb::Status Set(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, const class rocksdb::Slice & value, int *ret)
++ rocksdb::Status SetNX(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, class rocksdb::Slice value, int *ret)
++ rocksdb::Status Delete(const class rocksdb::Slice & user_key, const int & fields, int *ret)
++ rocksdb::Status IncrBy(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, int increment, int *ret)
++ rocksdb::Status IncrByFloat(const class rocksdb::Slice & user_key, const class rocksdb::Slice & field, double increment, double *ret)
++ rocksdb::Status MSet(const class rocksdb::Slice & user_key, const int & field_values, _Bool nx, int *ret)
++ rocksdb::Status MGet(const class rocksdb::Slice & user_key, const int & fields, int *values, int *statuses)
++ rocksdb::Status GetAll(const class rocksdb::Slice & user_key, int *field_values, enum HashFetchType type)
++ rocksdb::Status Scan(const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & field_prefix, int *fields, int *values)
+}
+
+class Redis::List {
++ rocksdb::Status Size(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status Trim(const class rocksdb::Slice & user_key, int start, int stop)
++ rocksdb::Status Set(const class rocksdb::Slice & user_key, int index, class rocksdb::Slice elem)
++ rocksdb::Status Insert(const class rocksdb::Slice & user_key, const class rocksdb::Slice & pivot, const class rocksdb::Slice & elem, _Bool before, int *ret)
++ rocksdb::Status Pop(const class rocksdb::Slice & user_key, int *elem, _Bool left)
++ rocksdb::Status Rem(const class rocksdb::Slice & user_key, int count, const class rocksdb::Slice & elem, int *ret)
++ rocksdb::Status Index(const class rocksdb::Slice & user_key, int index, int *elem)
++ rocksdb::Status RPopLPush(const class rocksdb::Slice & src, const class rocksdb::Slice & dst, int *elem)
++ rocksdb::Status Push(const class rocksdb::Slice & user_key, const int & elems, _Bool left, int *ret)
++ rocksdb::Status PushX(const class rocksdb::Slice & user_key, const int & elems, _Bool left, int *ret)
++ rocksdb::Status Range(const class rocksdb::Slice & user_key, int start, int stop, int *elems)
+}
+
+class Redis::PubSub {
++ rocksdb::Status Publish(const class rocksdb::Slice & channel, const class rocksdb::Slice & value)
+}
+
+class Redis::Request {
++ class Status Tokenize(struct evbuffer *input)
++ const int & GetCommands()
++ void ClearCommands()
+}
+
+class Redis::Set {
++ rocksdb::Status Card(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status IsMember(const class rocksdb::Slice & user_key, const class rocksdb::Slice & member, int *ret)
++ rocksdb::Status Add(const class rocksdb::Slice & user_key, const int & members, int *ret)
++ rocksdb::Status Remove(const class rocksdb::Slice & user_key, const int & members, int *ret)
++ rocksdb::Status Members(const class rocksdb::Slice & user_key, int *members)
++ rocksdb::Status Move(const class rocksdb::Slice & src, const class rocksdb::Slice & dst, const class rocksdb::Slice & member, int *ret)
++ rocksdb::Status Take(const class rocksdb::Slice & user_key, int *members, int count, _Bool pop)
++ rocksdb::Status Diff(const int & keys, int *members)
++ rocksdb::Status Union(const int & keys, int *members)
++ rocksdb::Status Inter(const int & keys, int *members)
++ rocksdb::Status Overwrite(class rocksdb::Slice user_key, const int & members)
++ rocksdb::Status DiffStore(const class rocksdb::Slice & dst, const int & keys, int *ret)
++ rocksdb::Status UnionStore(const class rocksdb::Slice & dst, const int & keys, int *ret)
++ rocksdb::Status InterStore(const class rocksdb::Slice & dst, const int & keys, int *ret)
++ rocksdb::Status Scan(const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & member_prefix, int *members)
+}
+
+class Redis::Sortedint {
++ rocksdb::Status Card(const class rocksdb::Slice & user_key, int *ret)
++ rocksdb::Status MExist(const class rocksdb::Slice & user_key, int ids, int *exists)
++ rocksdb::Status Add(const class rocksdb::Slice & user_key, int ids, int *ret)
++ rocksdb::Status Remove(const class rocksdb::Slice & user_key, int ids, int *ret)
++ rocksdb::Status Range(const class rocksdb::Slice & user_key, int cursor_id, int page, int limit, _Bool reversed, int *ids)
++ rocksdb::Status RangeByValue(const class rocksdb::Slice & user_key, struct SortedintRangeSpec spec, int *ids, int *size)
++ class Status ParseRangeSpec(const int & min, const int & max, struct SortedintRangeSpec *spec)
+}
+
+class Redis::String {
++ rocksdb::Status Append(const int & user_key, const int & value, int *ret)
++ rocksdb::Status Get(const int & user_key, int *value)
++ rocksdb::Status GetSet(const int & user_key, const int & new_value, int *old_value)
++ rocksdb::Status Set(const int & user_key, const int & value)
++ rocksdb::Status SetEX(const int & user_key, const int & value, int ttl)
++ rocksdb::Status SetNX(const int & user_key, const int & value, int ttl, int *ret)
++ rocksdb::Status SetXX(const int & user_key, const int & value, int ttl, int *ret)
++ rocksdb::Status SetRange(const int & user_key, int offset, const int & value, int *ret)
++ rocksdb::Status IncrBy(const int & user_key, int increment, int *ret)
++ rocksdb::Status IncrByFloat(const int & user_key, double increment, double *ret)
++ int MGet(const int & keys, int *values)
++ rocksdb::Status MSet(const int & pairs, int ttl)
++ rocksdb::Status MSetNX(const int & pairs, int ttl, int *ret)
++ rocksdb::Status CAS(const int & user_key, const int & old_value, const int & new_value, int ttl, int *ret)
++ rocksdb::Status CAD(const int & user_key, const int & value, int *ret)
+}
+
+class Redis::WriteBatchLogData {
++ enum RedisType GetRedisType()
++ int *GetArguments()
++ int Encode()
++ class Status Decode(const rocksdb::Slice & blob)
+}
+
+class ReplicationThread {
++ class Status Start(int && pre_fullsync_cb, int && post_fullsync_cb)
++ void Stop()
++ enum ReplState State()
++ int LastIOTime()
+}
+
+class ReplicationThread::CallbacksStateMachine {
++ void Start()
++ void Stop()
++ void EvCallback(struct bufferevent *bev, void *ctx)
++ void ConnEventCB(struct bufferevent *bev, int events, void *state_machine_ptr)
++ void SetReadCB(struct bufferevent *bev, bufferevent_data_cb cb, void *state_machine_ptr)
++ void SetWriteCB(struct bufferevent *bev, bufferevent_data_cb cb, void *state_machine_ptr)
+}
+
+class Scheduler {
++ int minute
++ int hour
++ int mday
++ int month
++ int wday
++ int ToString()
+}
+
+class Server
+
+class SetMetadata {
+}
+
+class SlotImport {
++ _Bool Start(int fd, int slot)
++ _Bool Success(int slot)
++ _Bool Fail(int slot)
++ void StopForLinkError(int fd)
++ int GetSlot()
++ int GetStatus()
++ void GetImportInfo(int *info)
+}
+
+class SlotInfo {
++ int start
++ int end
++ int nodes
+}
+
+class SlotInfo::NodeInfo {
++ int host
++ int port
++ int id
+}
+
+class SlotMigrate {
++ class Status CreateMigrateHandleThread()
++ void *Loop(void *arg)
++ class Status MigrateStart(class Server *svr, const int & node_id, const int dst_ip, int dst_port, int slot, int speed, int pipeline_size, int seq_gap)
++ void ReleaseForbiddenSlot()
++ void SetMigrateSpeedLimit(int speed)
++ void SetPipelineSize(int size)
++ void SetSequenceGapSize(int size)
++ void SetMigrateStopFlag(_Bool state)
++ int GetMigrateState()
++ int GetMigrateStateMachine()
++ int GetForbiddenSlot()
++ int GetMigratingSlot()
++ void GetMigrateInfo(int *info)
+}
+
+class SlotMigrateJob {
++ int slot_fd_
++ int migrate_slot_
++ int dst_ip_
++ int dst_port_
++ int speed_limit_
++ int pipeline_size_
++ int seq_gap_
+}
+
+class SlowEntry {
++ int id
++ int time
++ int duration
++ int args
++ int ToRedisString()
+}
+
+class SortedintMetadata {
+}
+
+class SortedintRangeSpec {
++ int min
++ int max
++ _Bool minex
++ _Bool maxex
++ int offset
++ int count
++ _Bool reversed
+}
+
+class Stats {
++ int total_calls
++ int in_bytes
++ int out_bytes
++ int inst_metrics
++ int fullsync_counter
++ int psync_err_counter
++ int psync_ok_counter
++ int commands_stats
++ void IncrCalls(const int & command_name)
++ void IncrLatency(int latency, const int & command_name)
++ void IncrInbondBytes(int bytes)
++ void IncrOutbondBytes(int bytes)
++ void IncrFullSyncCounter()
++ void IncrPSyncErrCounter()
++ void IncrPSyncOKCounter()
++ int GetMemoryRSS()
++ int GetTimeStamp()
++ void TrackInstantaneousMetric(int metric, int current_reading)
++ int GetInstantaneousMetric(int metric)
+}
+
+class Status {
++ _Bool IsOK()
++ _Bool IsNotFound()
++ _Bool IsImorting()
++ int Msg()
++ class Status OK()
+}
+
+class Task {
++ int callback
++ void *arg
+}
+
+class TaskRunner {
++ class Status Publish(struct Task task)
++ int QueueSize()
++ void Start()
++ void Stop()
++ void Join()
++ void Purge()
+}
+
+class Worker
+
+class WorkerThread {
++ class Worker *GetWorker()
++ void Start()
++ void Stop()
++ void Join()
+}
+
+class WriteBatchHandler {
++ rocksdb::Status PutCF(int column_family_id, const rocksdb::Slice & key, const rocksdb::Slice & value)
++ enum WriteBatchType Type()
++ int Key()
++ int Value()
+}
+
+class rocksdb::WriteBatch::Handler {
++ class rocksdb::Status PutCF(int column_family_id, const class rocksdb::Slice & key, const class rocksdb::Slice & value)
++ void Put(const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status DeleteCF(int column_family_id, const class rocksdb::Slice & key)
++ void Delete(const class rocksdb::Slice & )
++ class rocksdb::Status SingleDeleteCF(int column_family_id, const class rocksdb::Slice & key)
++ void SingleDelete(const class rocksdb::Slice & )
++ class rocksdb::Status DeleteRangeCF(int , const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status MergeCF(int column_family_id, const class rocksdb::Slice & key, const class rocksdb::Slice & value)
++ void Merge(const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status PutBlobIndexCF(int , const class rocksdb::Slice & , const class rocksdb::Slice & )
++ void LogData(const class rocksdb::Slice & blob)
++ class rocksdb::Status MarkBeginPrepare(_Bool )
++ class rocksdb::Status MarkEndPrepare(const class rocksdb::Slice & )
++ class rocksdb::Status MarkNoop(_Bool )
++ class rocksdb::Status MarkRollback(const class rocksdb::Slice & )
++ class rocksdb::Status MarkCommit(const class rocksdb::Slice & )
++ _Bool Continue()
+}
+
+class ZRangeLexSpec {
++ int min
++ int max
++ _Bool minex
++ _Bool maxex
++ _Bool max_infinite
++ int offset
++ int count
++ _Bool removed
++ _Bool reversed
+}
+
+class ZRangeSpec {
++ double min
++ double max
++ _Bool minex
++ _Bool maxex
++ int offset
++ int count
++ _Bool removed
++ _Bool reversed
+}
+
+class ZSetMetadata {
+}
+
+class anonymous {
++ class rocksdb::Slice key
++ class rocksdb::Slice value
+}
+
+class command_stat {
++ int calls
++ int latency
+}
+
+class configEnum {
++ const char *name
++ const int val
+}
+
+class inst_metric {
++ int last_sample_time
++ int last_sample_count
++ int [16] samples
++ int idx
+}
+
+BitmapMetadata -up-|> Metadata
+StringField -up-|> ConfigField
+IntField -up-|> ConfigField
+Int64Field -up-|> ConfigField
+YesNoField -up-|> ConfigField
+EnumField -up-|> ConfigField
+HashMetadata -up-|> Metadata
+ListMetadata -up-|> Metadata
+Redis::Bitmap -up-|> Redis::Database
+Redis::CommandAppend -up-|> Redis::Commander
+Redis::CommandAuth -up-|> Redis::Commander
+Redis::CommandBGSave -up-|> Redis::Commander
+Redis::CommandBLPop -up-|> Redis::CommandBPop
+Redis::CommandBPop -up-|> Redis::Commander
+Redis::CommandBRPop -up-|> Redis::CommandBPop
+Redis::CommandBitCount -up-|> Redis::Commander
+Redis::CommandBitOp -up-|> Redis::Commander
+Redis::CommandBitPos -up-|> Redis::Commander
+Redis::CommandCAD -up-|> Redis::Commander
+Redis::CommandCAS -up-|> Redis::Commander
+Redis::CommandClient -up-|> Redis::Commander
+Redis::CommandCluster -up-|> Redis::Commander
+Redis::CommandClusterX -up-|> Redis::Commander
+Redis::CommandCommand -up-|> Redis::Commander
+Redis::CommandCompact -up-|> Redis::Commander
+Redis::CommandConfig -up-|> Redis::Commander
+Redis::CommandDBName -up-|> Redis::Commander
+Redis::CommandDBSize -up-|> Redis::Commander
+Redis::CommandDebug -up-|> Redis::Commander
+Redis::CommandDecr -up-|> Redis::Commander
+Redis::CommandDecrBy -up-|> Redis::Commander
+Redis::CommandDel -up-|> Redis::Commander
+Redis::CommandDiscard -up-|> Redis::Commander
+Redis::CommandEcho -up-|> Redis::Commander
+Redis::CommandEval -up-|> Redis::Commander
+Redis::CommandEvalSHA -up-|> Redis::Commander
+Redis::CommandExec -up-|> Redis::Commander
+Redis::CommandExists -up-|> Redis::Commander
+Redis::CommandExpire -up-|> Redis::Commander
+Redis::CommandExpireAt -up-|> Redis::Commander
+Redis::CommandFetchFile -up-|> Redis::Commander
+Redis::CommandFetchMeta -up-|> Redis::Commander
+Redis::CommandFlushAll -up-|> Redis::Commander
+Redis::CommandFlushBackup -up-|> Redis::Commander
+Redis::CommandFlushDB -up-|> Redis::Commander
+Redis::CommandGeoAdd -up-|> Redis::CommandGeoBase
+Redis::CommandGeoBase -up-|> Redis::Commander
+Redis::CommandGeoDist -up-|> Redis::CommandGeoBase
+Redis::CommandGeoHash -up-|> Redis::Commander
+Redis::CommandGeoPos -up-|> Redis::Commander
+Redis::CommandGeoRadius -up-|> Redis::CommandGeoBase
+Redis::CommandGeoRadiusByMember -up-|> Redis::CommandGeoRadius
+Redis::CommandGeoRadiusByMemberReadonly -up-|> Redis::CommandGeoRadiusByMember
+Redis::CommandGeoRadiusReadonly -up-|> Redis::CommandGeoRadius
+Redis::CommandGet -up-|> Redis::Commander
+Redis::CommandGetBit -up-|> Redis::Commander
+Redis::CommandGetRange -up-|> Redis::Commander
+Redis::CommandGetSet -up-|> Redis::Commander
+Redis::CommandHDel -up-|> Redis::Commander
+Redis::CommandHExists -up-|> Redis::Commander
+Redis::CommandHGet -up-|> Redis::Commander
+Redis::CommandHGetAll -up-|> Redis::Commander
+Redis::CommandHIncrBy -up-|> Redis::Commander
+Redis::CommandHIncrByFloat -up-|> Redis::Commander
+Redis::CommandHKeys -up-|> Redis::Commander
+Redis::CommandHLen -up-|> Redis::Commander
+Redis::CommandHMGet -up-|> Redis::Commander
+Redis::CommandHMSet -up-|> Redis::Commander
+Redis::CommandHScan -up-|> Redis::CommandSubkeyScanBase
+Redis::CommandSubkeyScanBase -up-|> Redis::CommandScanBase
+Redis::CommandScanBase -up-|> Redis::Commander
+Redis::CommandHSetNX -up-|> Redis::Commander
+Redis::CommandHStrlen -up-|> Redis::Commander
+Redis::CommandHVals -up-|> Redis::Commander
+Redis::CommandIncr -up-|> Redis::Commander
+Redis::CommandIncrBy -up-|> Redis::Commander
+Redis::CommandIncrByFloat -up-|> Redis::Commander
+Redis::CommandInfo -up-|> Redis::Commander
+Redis::CommandKeys -up-|> Redis::Commander
+Redis::CommandLIndex -up-|> Redis::Commander
+Redis::CommandLInsert -up-|> Redis::Commander
+Redis::CommandLLen -up-|> Redis::Commander
+Redis::CommandLPop -up-|> Redis::CommandPop
+Redis::CommandPop -up-|> Redis::Commander
+Redis::CommandLPush -up-|> Redis::CommandPush
+Redis::CommandPush -up-|> Redis::Commander
+Redis::CommandLPushX -up-|> Redis::CommandPush
+Redis::CommandLRange -up-|> Redis::Commander
+Redis::CommandLRem -up-|> Redis::Commander
+Redis::CommandLSet -up-|> Redis::Commander
+Redis::CommandLTrim -up-|> Redis::Commander
+Redis::CommandMGet -up-|> Redis::Commander
+Redis::CommandMSet -up-|> Redis::Commander
+Redis::CommandMSetNX -up-|> Redis::Commander
+Redis::CommandMonitor -up-|> Redis::Commander
+Redis::CommandMulti -up-|> Redis::Commander
+Redis::CommandNamespace -up-|> Redis::Commander
+Redis::CommandObject -up-|> Redis::Commander
+Redis::CommandPExpire -up-|> Redis::Commander
+Redis::CommandPExpireAt -up-|> Redis::Commander
+Redis::CommandPSetEX -up-|> Redis::Commander
+Redis::CommandPSubscribe -up-|> Redis::Commander
+Redis::CommandPSync -up-|> Redis::Commander
+Redis::CommandPTTL -up-|> Redis::Commander
+Redis::CommandPUnSubscribe -up-|> Redis::Commander
+Redis::CommandPerfLog -up-|> Redis::Commander
+Redis::CommandPersist -up-|> Redis::Commander
+Redis::CommandPing -up-|> Redis::Commander
+Redis::CommandPubSub -up-|> Redis::Commander
+Redis::CommandPublish -up-|> Redis::Commander
+Redis::CommandQuit -up-|> Redis::Commander
+Redis::CommandRPop -up-|> Redis::CommandPop
+Redis::CommandRPopLPUSH -up-|> Redis::Commander
+Redis::CommandRPush -up-|> Redis::CommandPush
+Redis::CommandRPushX -up-|> Redis::CommandPush
+Redis::CommandRandomKey -up-|> Redis::Commander
+Redis::CommandReplConf -up-|> Redis::Commander
+Redis::CommandRole -up-|> Redis::Commander
+Redis::CommandSAdd -up-|> Redis::Commander
+Redis::CommandSCard -up-|> Redis::Commander
+Redis::CommandSDiff -up-|> Redis::Commander
+Redis::CommandSDiffStore -up-|> Redis::Commander
+Redis::CommandSInter -up-|> Redis::Commander
+Redis::CommandSInterStore -up-|> Redis::Commander
+Redis::CommandSIsMember -up-|> Redis::Commander
+Redis::CommandSMembers -up-|> Redis::Commander
+Redis::CommandSMove -up-|> Redis::Commander
+Redis::CommandSPop -up-|> Redis::Commander
+Redis::CommandSRandMember -up-|> Redis::Commander
+Redis::CommandSRem -up-|> Redis::Commander
+Redis::CommandSScan -up-|> Redis::CommandSubkeyScanBase
+Redis::CommandSUnion -up-|> Redis::Commander
+Redis::CommandSUnionStore -up-|> Redis::Commander
+Redis::CommandScan -up-|> Redis::CommandScanBase
+Redis::CommandScript -up-|> Redis::Commander
+Redis::CommandSelect -up-|> Redis::Commander
+Redis::CommandSet -up-|> Redis::Commander
+Redis::CommandSetBit -up-|> Redis::Commander
+Redis::CommandSetEX -up-|> Redis::Commander
+Redis::CommandSetNX -up-|> Redis::Commander
+Redis::CommandSetRange -up-|> Redis::Commander
+Redis::CommandShutdown -up-|> Redis::Commander
+Redis::CommandSlaveOf -up-|> Redis::Commander
+Redis::CommandSlowlog -up-|> Redis::Commander
+Redis::CommandSortedintAdd -up-|> Redis::Commander
+Redis::CommandSortedintCard -up-|> Redis::Commander
+Redis::CommandSortedintExists -up-|> Redis::Commander
+Redis::CommandSortedintRange -up-|> Redis::Commander
+Redis::CommandSortedintRevRange -up-|> Redis::CommandSortedintRange
+Redis::CommandSortedintRangeByValue -up-|> Redis::Commander
+Redis::CommandSortedintRevRangeByValue -up-|> Redis::CommandSortedintRangeByValue
+Redis::CommandSortedintRem -up-|> Redis::Commander
+Redis::CommandStats -up-|> Redis::Commander
+Redis::CommandStrlen -up-|> Redis::Commander
+Redis::CommandSubscribe -up-|> Redis::Commander
+Redis::CommandTTL -up-|> Redis::Commander
+Redis::CommandType -up-|> Redis::Commander
+Redis::CommandUnSubscribe -up-|> Redis::Commander
+Redis::CommandZAdd -up-|> Redis::Commander
+Redis::CommandZCard -up-|> Redis::Commander
+Redis::CommandZCount -up-|> Redis::Commander
+Redis::CommandZIncrBy -up-|> Redis::Commander
+Redis::CommandZInterStore -up-|> Redis::CommandZUnionStore
+Redis::CommandZUnionStore -up-|> Redis::Commander
+Redis::CommandZLexCount -up-|> Redis::Commander
+Redis::CommandZMScore -up-|> Redis::Commander
+Redis::CommandZPop -up-|> Redis::Commander
+Redis::CommandZPopMin -up-|> Redis::CommandZPop
+Redis::CommandZPopMax -up-|> Redis::CommandZPop
+Redis::CommandZRange -up-|> Redis::Commander
+Redis::CommandZRevRange -up-|> Redis::CommandZRange
+Redis::CommandZRangeByLex -up-|> Redis::Commander
+Redis::CommandZRevRangeByLex -up-|> Redis::CommandZRangeByLex
+Redis::CommandZRangeByScore -up-|> Redis::Commander
+Redis::CommandZRevRangeByScore -up-|> Redis::CommandZRangeByScore
+Redis::CommandZRank -up-|> Redis::Commander
+Redis::CommandZRevRank -up-|> Redis::CommandZRank
+Redis::CommandZRem -up-|> Redis::Commander
+Redis::CommandZRemRangeByLex -up-|> Redis::Commander
+Redis::CommandZRemRangeByRank -up-|> Redis::Commander
+Redis::CommandZRemRangeByScore -up-|> Redis::Commander
+Redis::CommandZScan -up-|> Redis::CommandSubkeyScanBase
+Redis::CommandZScore -up-|> Redis::Commander
+Redis::Geo -up-|> Redis::ZSet
+Redis::ZSet -up-|> Redis::SubKeyScanner
+Redis::SubKeyScanner -up-|> Redis::Database
+Redis::Hash -up-|> Redis::SubKeyScanner
+Redis::List -up-|> Redis::Database
+Redis::PubSub -up-|> Redis::Database
+Redis::Set -up-|> Redis::SubKeyScanner
+Redis::Sortedint -up-|> Redis::Database
+Redis::String -up-|> Redis::Database
+SetMetadata -up-|> Metadata
+SlotImport -up-|> Redis::Database
+SlotMigrate -up-|> Redis::Database
+SortedintMetadata -up-|> Metadata
+WriteBatchHandler -up-|> rocksdb::WriteBatch::Handler
+ZSetMetadata -up-|> Metadata
+@enduml

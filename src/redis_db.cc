@@ -43,6 +43,7 @@ rocksdb::Status Database::GetRawMetadata(const Slice &ns_key, std::string *bytes
   LatestSnapShot ss(db_);
   rocksdb::ReadOptions read_options;
   read_options.snapshot = ss.GetSnapShot();
+  // ns_key 直接获取数据 batch todo perf
   return db_->Get(read_options, metadata_cf_handle_, ns_key, bytes);
 }
 
@@ -435,6 +436,7 @@ rocksdb::Status Database::Type(const Slice &user_key, RedisType *type) {
 }
 
 void Database::AppendNamespacePrefix(const Slice &user_key, std::string *output) {
+  // ns+key+slotid
   ComposeNamespaceKey(namespace_, user_key, output, storage_->IsSlotIdEncoded());
 }
 

@@ -41,6 +41,11 @@ static const uint16_t crc16tab[256]= {
     0x6e17, 0x7e36, 0x4e55, 0x5e74, 0x2e93, 0x3eb2, 0x0ed1, 0x1ef0
 };
 
+// crc16算法 是针对redis的存储hash槽 进行的处理
+// redis的hash槽为16348 个，理论上redis如果为集群部署的化 最大支持的就是16348个
+// redis的multi-key 确实很巧妙 ，针对 {} 这个符号的key 可以做到特殊处理 保证 被hash到同一个节点上，解决了redis 多集群下 key 通过算法进行路由后 无法进行交集 并集的操作
+// 针对hash槽 （16383）mod 之前 需要 针对key 进行CRC16的算法校验 ，这种方式是可以保证 集群上的key 分部的均匀性
+
 uint16_t crc16(const char *buf, int len) {
     int i;
     uint16_t crc = 0;
@@ -49,7 +54,12 @@ uint16_t crc16(const char *buf, int len) {
     return crc;
 }
 
+// 首先用&取余是有限制条件的：
+// 除数必须是2的n次幂才行
+// redis的取余方式 正式基于这个限制条件 才可以使用 & 0x3FF 来进行取余操作
+// 获取 slot num
 uint16_t GetSlotNumFromKey(const std::string &key) {
+  // 没有指定标签就使用 key 来进行 hash
   auto tag = GetTagFromKey(key);
   if (tag.empty()) {
     tag = key;
@@ -59,15 +69,17 @@ uint16_t GetSlotNumFromKey(const std::string &key) {
   return static_cast<int>(crc & HASH_SLOTS_MASK);
 }
 
+//获取{}内容
 std::string GetTagFromKey(const std::string &key) {
   auto left_pos = key.find("{");
+  // 返回空串
   if (left_pos == std::string::npos) return std::string();
   auto right_pos = key.find("}", left_pos + 1);
   // Note that we hash the whole key if there is nothing between {}.
   if (right_pos == std::string::npos || right_pos <= left_pos + 1) {
     return std::string();
   }
-
+  // 返回{}内的子串
   return key.substr(left_pos + 1, right_pos - left_pos - 1);
 }
 
