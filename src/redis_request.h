@@ -29,12 +29,15 @@ class Request {
 
  private:
   // internal states related to parsing
-
+// 解析状态机
   enum ParserState { ArrayLen, BulkLen, BulkData };
+
   ParserState state_ = ArrayLen;
   size_t multi_bulk_len_ = 0;
   size_t bulk_len_ = 0;
+  // 元素数据
   CommandTokens tokens_;
+  //vec-vec 可以包含 batch 多命令
   std::vector<CommandTokens> commands_;
 
   Server *svr_;

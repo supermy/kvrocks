@@ -154,7 +154,7 @@ Metadata::Metadata(RedisType type, bool generate_version) {
   if (generate_version) version = generateVersion();
 }
 
-// 解码 meta key
+// 解码 metaval flag+expire+version+size
 rocksdb::Status Metadata::Decode(const std::string &bytes) {
   // flags(1byte) + expire (4byte)
   if (bytes.size() < 5) {
@@ -171,7 +171,7 @@ rocksdb::Status Metadata::Decode(const std::string &bytes) {
   return rocksdb::Status::OK();
 }
 
-// 编码 metakey
+// 编码 metaval
 void Metadata::Encode(std::string *dst) {
   PutFixed8(dst, flags);
   PutFixed32(dst, (uint32_t) expire);

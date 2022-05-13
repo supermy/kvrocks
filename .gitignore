@@ -47,7 +47,9 @@ kvrocks2redis
 
 external/*
 
-my/logs/*
-my/target/*
+
 compactdb
 testsdb
+src/myt_hash_test
+src/myunittest
+src/unittest

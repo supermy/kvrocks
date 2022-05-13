@@ -118,10 +118,6 @@ lint:
 	cd ..; ./cppcheck.sh
 
 $(PROG): $(GLOG) $(LIBEVENT) $(ROCKSDB) $(LUA) $(KVROCKS_OBJS)
-	@echo ${LDFLAGS}
-	@echo ${FINAL_LIBS}
-	@echo ${JEMALLOC} ${GLOG} ${LIBEVENT} ${ROCKSDB} ${LUA} 
-	# @echo $(KVROCKS_OBJS)
 	$(KVROCKS_LD) -o $(PROG) $(KVROCKS_OBJS) $(FINAL_LIBS) $(LDFLAGS)
 
 #.libs 生成静态链接库
@@ -160,8 +156,22 @@ kvrocks2redis: $(PROG) $(KVROCKS2REDIS_OBJS)
 unittest: $(UNITTEST_OBJS)
 	$(KVROCKS_LD) -o unittest $(UNITTEST_OBJS) $(FINAL_LIBS) $(LDFLAGS) -lgtest
 
+
+# 增加单个测试用例入口
+my/%: ../tests/%.o $(SHARED_OBJS) ../tests/main.o 
+	$(KVROCKS_LD) -o ../tests/${notdir $@} ../tests/main.o  $< $(SHARED_OBJS) $(FINAL_LIBS) $(LDFLAGS) -lgtest
+	../tests/${notdir $@}
+
+# 运行特定的测试用例
+# make test/RedisHashTest*
+# make test/HIncr
+# make test/HIncr*
+test/%: unittest
+	./unittest --gtest_filter=*${notdir $@}
+
 test: unittest
 	./unittest
+
 
 %.o: %.cc
 	$(KVROCKS_CXX) -c $< -o $@

@@ -1625,6 +1625,7 @@ class CommandLRem : public Commander {
 
 class CommandLInsert : public Commander {
  public:
+  // 参数解析
   Status Parse(const std::vector<std::string> &args) override {
     if ((Util::ToLower(args[2]) == "before")) {
       before_ = true;

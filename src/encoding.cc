@@ -12,6 +12,7 @@
 #include <string>
 #include <utility>
 
+//没有定义直接排序 分系统定义大小端
 #ifndef BYTE_ORDER
 #if (BSD >= 199103)
 # include <machine/endian.h>
@@ -82,10 +83,11 @@
 #error "Undefined or invalid BYTE_ORDER"
 #endif
 
+// 编码
 void EncodeFixed8(char *buf, uint8_t value) {
   buf[0] = static_cast<uint8_t>(value & 0xff);
 }
-
+// 大端直接拷贝；小端换位
 void EncodeFixed16(char *buf, uint16_t value) {
   if (BYTE_ORDER == BIG_ENDIAN) {
     memcpy(buf, &value, sizeof(value));
@@ -216,7 +218,7 @@ uint16_t DecodeFixed16(const char *ptr) {
         | (static_cast<uint16_t>(static_cast<uint8_t>(ptr[0])) << 8));
   }
 }
-
+// 解码大端拷贝，小端交换位置
 uint32_t DecodeFixed32(const char *ptr) {
   if (BYTE_ORDER == BIG_ENDIAN) {
     uint32_t value;
@@ -230,9 +232,15 @@ uint32_t DecodeFixed32(const char *ptr) {
   }
 }
 
+// 大端拷贝；小端换位 解码为大端 char* ->uint64
 uint64_t DecodeFixed64(const char *ptr) {
   if (BYTE_ORDER == BIG_ENDIAN) {
     uint64_t value;
+    // C 库函数 void *memcpy(void *str1, const void *str2, size_t n) 从存储区 str2 复制 n 个字节到存储区 str1。
+    // 参数
+      // str1 -- 指向用于存储复制内容的目标数组，类型强制转换为 void* 指针。
+      // str2 -- 指向要复制的数据源，类型强制转换为 void* 指针。
+      // n -- 要被复制的字节数。
     memcpy(&value, ptr, sizeof(value));
     return value;
   } else {

@@ -20,21 +20,26 @@ protected:
 
 protected:
   Redis::Hash *hash;
+
 };
 
 TEST_F(RedisHashTest, GetAndSet) {
   int ret;
+  // set
   for (size_t i = 0; i < fields_.size(); i++) {
     rocksdb::Status s = hash->Set(key_, fields_[i], values_[i], &ret);
     EXPECT_TRUE(s.ok() && ret == 1);
   }
+  // get
   for (size_t i = 0; i < fields_.size(); i++) {
     std::string got;
     rocksdb::Status s = hash->Get(key_, fields_[i], &got);
     EXPECT_EQ(values_[i], got);
   }
+
   rocksdb::Status s = hash->Delete(key_, fields_, &ret);
   EXPECT_TRUE(s.ok() && static_cast<int>(fields_.size()) == ret);
+  
   hash->Del(key_);
 }
 

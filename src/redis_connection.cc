@@ -54,6 +54,7 @@ void Connection::Detach() {
   owner_->DetachConnection(this);
 }
 
+//读 src/redis_request.cc命令解析
 void Connection::OnRead(struct bufferevent *bev, void *ctx) {
   DLOG(INFO) << "[connection] on read: " << bufferevent_getfd(bev);
   auto conn = static_cast<Connection *>(ctx);
@@ -66,6 +67,7 @@ void Connection::OnRead(struct bufferevent *bev, void *ctx) {
     LOG(INFO) << "Failed to tokenize the request, encounter error: " << s.Msg();
     return;
   }
+  // 执行命令解析结果
   conn->ExecuteCommands(conn->req_.GetCommands());
   conn->req_.ClearCommands();
   if (conn->IsFlagEnabled(kCloseAsync)) {
@@ -73,6 +75,7 @@ void Connection::OnRead(struct bufferevent *bev, void *ctx) {
   }
 }
 
+//写
 void Connection::OnWrite(struct bufferevent *bev, void *ctx) {
   auto conn = static_cast<Connection *>(ctx);
   if (conn->IsFlagEnabled(kCloseAfterReply) ||
@@ -286,10 +289,11 @@ void Connection::recordProfilingSampleIfNeed(const std::string &cmd, uint64_t du
   entry->perf_context = std::move(perf_context);
   svr_->GetPerfLog()->PushEntry(entry);
 }
-
+//执行命令
 void Connection::ExecuteCommands(const std::vector<Redis::CommandTokens> &to_process_cmds) {
   if (to_process_cmds.empty()) return;
 
+  //准备鉴权
   Config *config = svr_->GetConfig();
   std::string reply, password = config->requirepass;
 
@@ -352,6 +356,7 @@ void Connection::ExecuteCommands(const std::vector<Redis::CommandTokens> &to_pro
       Reply(Redis::Error("ERR wrong number of arguments"));
       continue;
     }
+    // 设置参数
     current_cmd_->SetArgs(cmd_tokens);
     s = current_cmd_->Parse(cmd_tokens);
     if (!s.IsOK()) {
@@ -399,9 +404,12 @@ void Connection::ExecuteCommands(const std::vector<Redis::CommandTokens> &to_pro
     svr_->stats_.IncrCalls(cmd_name);
     auto start = std::chrono::high_resolution_clock::now();
     bool is_profiling = isProfilingEnabled(cmd_name);
+    // 执行命令
     s = current_cmd_->Execute(svr_, this, &reply);
     auto end = std::chrono::high_resolution_clock::now();
+    //指令执行花费时间
     uint64_t duration = std::chrono::duration_cast<std::chrono::microseconds>(end-start).count();
+    //慢日志采样
     if (is_profiling) recordProfilingSampleIfNeed(cmd_name, duration);
     svr_->SlowlogPushEntryIfNeeded(current_cmd_->Args(), duration);
     svr_->stats_.IncrLatency(static_cast<uint64_t>(duration), cmd_name);

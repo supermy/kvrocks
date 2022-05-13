@@ -6,7 +6,7 @@ namespace Redis {
 rocksdb::Status List::GetMetadata(const Slice &ns_key, ListMetadata *metadata) {
   return Database::GetMetadata(kRedisList, ns_key, metadata);
 }
-
+//meta size
 rocksdb::Status List::Size(const Slice &user_key, uint32_t *ret) {
   *ret = 0;
 
@@ -27,6 +27,7 @@ rocksdb::Status List::PushX(const Slice &user_key, const std::vector<Slice> &ele
   return push(user_key, elems, false, left, ret);
 }
 
+// Redis Lpush 命令将一个或多个值插入到列表头部。 如果 key 不存在，一个空列表会被创建并执行 LPUSH 操作。 当 key 存在但不是列表类型时，返回一个错误。
 rocksdb::Status List::push(const Slice &user_key,
                            std::vector<Slice> elems,
                            bool create_if_missing,
@@ -41,20 +42,26 @@ rocksdb::Status List::push(const Slice &user_key,
   RedisCommand cmd = left ? kRedisCmdLPush : kRedisCmdRPush;
   WriteBatchLogData log_data(kRedisList, {std::to_string(cmd)});
   batch.PutLogData(log_data.Encode());
+
   LockGuard guard(storage_->GetLockManager(), ns_key);
+
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
-  if (!s.ok() && !(create_if_missing && s.IsNotFound())) {
+  if (!s.ok() && !(create_if_missing && s.IsNotFound())) { //Redis Lpushx 将一个值插入到已存在的列表头部，列表不存在时操作无效。
+
     return s.IsNotFound() ? rocksdb::Status::OK() : s;
   }
-  uint64_t index = left ? metadata.head - 1 : metadata.tail;
+// set无序与hash类似；list 有序需要idx固定排序
+  uint64_t index = left ? metadata.head - 1 : metadata.tail; //fixedme 不如rangeQuer+iter.first||iter.last 准确
+
   for (const auto &elem : elems) {
     std::string index_buf, sub_key;
     PutFixed64(&index_buf, index);
     InternalKey(ns_key, index_buf, metadata.version, storage_->IsSlotIdEncoded()).Encode(&sub_key);
     batch.Put(sub_key, elem);
-    left ? --index : ++index;
+    left ? --index : ++index; //头尾
   }
-  if (left) {
+
+  if (left) {//头尾
     metadata.head -= elems.size();
   } else {
     metadata.tail += elems.size();
@@ -67,6 +74,7 @@ rocksdb::Status List::push(const Slice &user_key,
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
+// Redis Lpop 命令用于移除并返回列表的第一个元素。
 rocksdb::Status List::Pop(const Slice &user_key, std::string *elem, bool left) {
   elem->clear();
 
@@ -78,7 +86,8 @@ rocksdb::Status List::Pop(const Slice &user_key, std::string *elem, bool left) {
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
   if (!s.ok()) return s;
 
-  uint64_t index = left ? metadata.head : metadata.tail - 1;
+// fixed query & iter.first|iter.last 
+  uint64_t index = left ? metadata.head : metadata.tail - 1; 
   std::string buf;
   PutFixed64(&buf, index);
   std::string sub_key;
@@ -124,6 +133,12 @@ rocksdb::Status List::Pop(const Slice &user_key, std::string *elem, bool left) {
  * then trim the list from tail with num of elems to delete, here is 2.
  * and list would become: | E1 | E2 | E3 | E4 | E5 | E6 |
  */
+
+/* Redis Lrem 根据参数 COUNT 的值，移除列表中与参数 VALUE 相等的元素。
+COUNT 的值可以是以下几种：
+count > 0 : 从表头开始向表尾搜索，移除与 VALUE 相等的元素，数量为 COUNT 。
+count < 0 : 从表尾开始向表头搜索，移除与 VALUE 相等的元素，数量为 COUNT 的绝对值。
+count = 0 : 移除表中所有与 VALUE 相等的值。 */
 rocksdb::Status List::Rem(const Slice &user_key, int count, const Slice &elem, int *ret) {
   *ret = 0;
 
@@ -143,15 +158,15 @@ rocksdb::Status List::Rem(const Slice &user_key, int count, const Slice &elem, i
   InternalKey(ns_key, "", metadata.version + 1, storage_->IsSlotIdEncoded()).Encode(&next_version_prefix);
 
   bool reversed = count < 0;
-  std::vector<uint64_t> to_delete_indexes;
+  std::vector<uint64_t> to_delete_indexes; //删除清单
   rocksdb::ReadOptions read_options;
   LatestSnapShot ss(db_);
   read_options.snapshot = ss.GetSnapShot();
   rocksdb::Slice upper_bound(next_version_prefix);
-  read_options.iterate_upper_bound = &upper_bound;
-  rocksdb::Slice lower_bound(prefix);
-  read_options.iterate_lower_bound = &lower_bound;
-  read_options.fill_cache = false;
+  read_options.iterate_upper_bound = &upper_bound; //边界
+  rocksdb::Slice lower_bound(prefix);//range query
+  read_options.iterate_lower_bound = &lower_bound; //边界
+  read_options.fill_cache = false; //
 
   auto iter = db_->NewIterator(read_options);
   for (iter->Seek(start_key);
@@ -175,8 +190,9 @@ rocksdb::Status List::Rem(const Slice &user_key, int count, const Slice &elem, i
   batch.PutLogData(log_data.Encode());
 
   if (to_delete_indexes.size() == metadata.size) {
-    batch.Delete(metadata_cf_handle_, ns_key);
+    batch.Delete(metadata_cf_handle_, ns_key); //利用version 整体删除
   } else {
+    //不用tail&head 更方便准确
     std::string to_update_key, to_delete_key;
     uint64_t min_to_delete_index = !reversed ? to_delete_indexes[0] : to_delete_indexes[to_delete_indexes.size() - 1];
     uint64_t max_to_delete_index = !reversed ? to_delete_indexes[to_delete_indexes.size() - 1] : to_delete_indexes[0];
@@ -211,7 +227,9 @@ rocksdb::Status List::Rem(const Slice &user_key, int count, const Slice &elem, i
     } else {
       metadata.tail -= to_delete_indexes.size();
     }
-    metadata.size -= to_delete_indexes.size();
+
+    //meta size
+    metadata.size -= to_delete_indexes.size(); 
     std::string bytes;
     metadata.Encode(&bytes);
     batch.Put(metadata_cf_handle_, ns_key, bytes);
@@ -222,6 +240,10 @@ rocksdb::Status List::Rem(const Slice &user_key, int count, const Slice &elem, i
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
+// fixed 使用merge在insert point 后移
+// Redis Linsert 命令用于在列表的元素前或者后插入元素。当指定元素不存在于列表中时，不执行任何操作。
+// 当列表不存在时，被视为空列表，不执行任何操作。
+// 类似数组，中间插入数据会导致数据整体后移。如果用链表形式实现则无此问题。主要是看此命令的使用频率。
 rocksdb::Status List::Insert(const Slice &user_key, const Slice &pivot, const Slice &elem, bool before, int *ret) {
   *ret = 0;
   std::string ns_key;
@@ -308,7 +330,7 @@ rocksdb::Status List::Insert(const Slice &user_key, const Slice &pivot, const Sl
   *ret = metadata.size;
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
-
+// Redis Lindex 命令用于通过索引获取列表中的元素。你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
 rocksdb::Status List::Index(const Slice &user_key, int index, std::string *elem) {
   elem->clear();
 
@@ -318,19 +340,20 @@ rocksdb::Status List::Index(const Slice &user_key, int index, std::string *elem)
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
   if (!s.ok()) return s;
 
-  if (index < 0) index += metadata.size;
+  if (index < 0) index += metadata.size;  //fixed me
   if (index < 0 || index >= static_cast<int>(metadata.size)) return rocksdb::Status::NotFound();
 
   rocksdb::ReadOptions read_options;
   LatestSnapShot ss(db_);
   read_options.snapshot = ss.GetSnapShot();
   std::string buf;
-  PutFixed64(&buf, metadata.head + index);
+  PutFixed64(&buf, metadata.head + index);//fixed me   rangeQuery+nextX
   std::string sub_key;
   InternalKey(ns_key, buf, metadata.version, storage_->IsSlotIdEncoded()).Encode(&sub_key);
   return db_->Get(read_options, sub_key, elem);
 }
 
+// Redis Lrange 返回列表中指定区间内的元素，区间以偏移量 START 和 END 指定。 其中 0 表示列表的第一个元素， 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。
 // The offset can also be negative, -1 is the last element, -2 the penultimate
 // Out of range indexes will not produce an error.
 // If start is larger than the end of the list, an empty list is returned.
@@ -351,7 +374,7 @@ rocksdb::Status List::Range(const Slice &user_key, int start, int stop, std::vec
   if (start < 0) start = 0;
 
   std::string buf;
-  PutFixed64(&buf, metadata.head + start);
+  PutFixed64(&buf, metadata.head + start); //fixed me  如果列表被修剪过，索引就不正确
   std::string start_key, prefix, next_version_prefix;
   InternalKey(ns_key, buf, metadata.version, storage_->IsSlotIdEncoded()).Encode(&start_key);
   InternalKey(ns_key, "", metadata.version, storage_->IsSlotIdEncoded()).Encode(&prefix);
@@ -364,7 +387,7 @@ rocksdb::Status List::Range(const Slice &user_key, int start, int stop, std::vec
   read_options.iterate_upper_bound = &upper_bound;
   read_options.fill_cache = false;
 
-  auto iter = db_->NewIterator(read_options);
+  auto iter = db_->NewIterator(read_options); //rangeQuery+nextX
   for (iter->Seek(start_key);
        iter->Valid() && iter->key().starts_with(prefix);
        iter->Next()) {
@@ -380,6 +403,10 @@ rocksdb::Status List::Range(const Slice &user_key, int start, int stop, std::vec
   return rocksdb::Status::OK();
 }
 
+/* 
+Redis Lset 通过索引来设置元素的值。
+当索引参数超出范围，或对一个空列表进行 LSET 时，返回一个错误。
+ */
 rocksdb::Status List::Set(const Slice &user_key, int index, Slice elem) {
   std::string ns_key;
   AppendNamespacePrefix(user_key, &ns_key);
@@ -394,7 +421,7 @@ rocksdb::Status List::Set(const Slice &user_key, int index, Slice elem) {
   }
 
   std::string buf, value, sub_key;
-  PutFixed64(&buf, metadata.head + index);
+  PutFixed64(&buf, metadata.head + index); //fixedme
   InternalKey(ns_key, buf, metadata.version, storage_->IsSlotIdEncoded()).Encode(&sub_key);
   s = db_->Get(rocksdb::ReadOptions(), sub_key, &value);
   if (!s.ok()) {
@@ -406,7 +433,7 @@ rocksdb::Status List::Set(const Slice &user_key, int index, Slice elem) {
   WriteBatchLogData
       log_data(kRedisList, {std::to_string(kRedisCmdLSet), std::to_string(index)});
   batch.PutLogData(log_data.Encode());
-  batch.Put(sub_key, elem);
+  batch.Put(sub_key, elem); //
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
@@ -418,16 +445,19 @@ rocksdb::Status List::RPopLPush(const Slice &src, const Slice &dst, std::string 
     return rocksdb::Status::InvalidArgument(kErrMsgWrongType);
   }
 
-  s = Pop(src, elem, false);
+  s = Pop(src, elem, false);//
   if (!s.ok()) return s;
 
   int ret;
   std::vector<Slice> elems;
   elems.emplace_back(*elem);
-  s = Push(dst, elems, true, &ret);
+  s = Push(dst, elems, true, &ret);//
   return s;
 }
-
+/*
+Redis Ltrim 对一个列表进 行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。
+下标 0 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2 表示列表的倒数第二个元素，以此类推。 */
+//fixed db->DeleteRange(WriteOptions(), start, end); 
 // Caution: trim the big list may block the server
 rocksdb::Status List::Trim(const Slice &user_key, int start, int stop) {
   uint32_t trim_cnt = 0;

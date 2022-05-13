@@ -551,6 +551,17 @@ rocksdb::Status Database::GetSlotKeysInfo(int slot,
   return rocksdb::Status::OK();
 }
 
+/* Redis HSCAN 命令用于迭代哈希表中的键值对。
+语法
+redis HSCAN 命令基本语法如下：
+HSCAN key cursor [MATCH pattern] [COUNT count]
+cursor - 游标。
+pattern - 匹配的模式。
+count - 指定从数据集里返回多少元素，默认值为 10 。
+可用版本
+>= 2.8.0
+返回值
+返回的每个元素都是一个元组，每一个元组元素由一个字段(field) 和值（value）组成。 */
 rocksdb::Status SubKeyScanner::Scan(RedisType type,
                                     const Slice &user_key,
                                     const std::string &cursor,
@@ -568,6 +579,7 @@ rocksdb::Status SubKeyScanner::Scan(RedisType type,
   LatestSnapShot ss(db_);
   rocksdb::ReadOptions read_options;
   read_options.snapshot = ss.GetSnapShot();
+  // LevelDB 在读参数 ReadOptions 提供了一个参数 fill_cache ，让上层控制是否要将 data block 放入到 block cache。
   read_options.fill_cache = false;
   auto iter = db_->NewIterator(read_options);
   std::string match_prefix_key;

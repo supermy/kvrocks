@@ -1,0 +1,587 @@
+@startuml
+set namespaceSeparator ::
+
+class BitmapMetadata {
+}
+
+class Metadata {
++ int flags
++ int expire
++ int version
++ int size
++ void InitVersionCounter()
++ enum RedisType Type()
++ int TTL()
++ struct timeval Time()
++ _Bool Expired()
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
++ _Bool operator==(const class Metadata & that)
+}
+
+class Cluster {
++ class Status SetClusterNodes(const int & nodes_str, int version, _Bool force)
++ class Status GetClusterNodes(int *nodes_str)
++ class Status SetNodeId(int node_id)
++ class Status SetSlot(int slot, int node_id, int version)
++ class Status SetSlotMigrated(int slot, const int & ip_port)
++ class Status SetSlotImported(int slot)
++ class Status GetSlotsInfo(int *slot_infos)
++ class Status GetClusterInfo(int *cluster_infos)
++ int GetVersion()
++ _Bool IsValidSlot(int slot)
++ _Bool IsNotMaster()
++ _Bool IsWriteForbiddenSlot(int slot)
++ class Status CanExecByMySelf(const Redis::CommandAttributes *attributes, const int & cmd_tokens, Redis::Connection *conn)
++ void SetMasterSlaveRepl()
++ class Status MigrateSlot(int slot, const int & dst_node_id)
++ class Status ImportSlot(Redis::Connection *conn, int slot, int state)
++ int GetMyId()
++ _Bool SubCommandIsExecExclusive(const int & subcommand)
+}
+
+class ClusterNode {
++ int id_
++ int host_
++ int port_
++ int role_
++ int master_id_
++ int slots_info_
++ int slots_
++ int replicas
++ int importing_slot_
+}
+
+class CompactionCheckerRange {
++ int Start
++ int Stop
++ _Bool Enabled()
+}
+
+class Config {
++ int port
++ int workers
++ int timeout
++ int loglevel
++ int backlog
++ int maxclients
++ int max_backup_to_keep
++ int max_backup_keep_hours
++ int slowlog_log_slower_than
++ int slowlog_max_len
++ _Bool daemonize
++ int supervised_mode
++ _Bool slave_readonly
++ _Bool slave_serve_stale_data
++ _Bool slave_empty_db_before_fullsync
++ int slave_priority
++ int max_db_size
++ int max_replication_mb
++ int max_io_mb
++ int max_bitmap_to_string_mb
++ _Bool master_use_repl_port
++ _Bool purge_backup_on_fullsync
++ _Bool auto_resize_block_and_sst
++ int fullsync_recv_file_delay
++ int binds
++ int dir
++ int db_dir
++ int backup_dir
++ int backup_sync_dir
++ int checkpoint_dir
++ int sync_checkpoint_dir
++ int log_dir
++ int pidfile
++ int db_name
++ int masterauth
++ int requirepass
++ int master_host
++ int master_port
++ class Cron compact_cron
++ class Cron bgsave_cron
++ struct CompactionCheckerRange compaction_checker_range
++ int tokens
++ _Bool slot_id_encoded
++ _Bool cluster_enabled
++ int migrate_speed
++ int pipeline_size
++ int sequence_gap
++ int profiling_sample_ratio
++ int profiling_sample_record_threshold_ms
++ int profiling_sample_record_max_len
++ int profiling_sample_commands
++ _Bool profiling_sample_all_commands
++ struct anonymous RocksDB
++ class Status Rewrite()
++ class Status Load(const int & path)
++ void Get(int key, int *values)
++ class Status Set(class Server *svr, int key, const int & value)
++ void SetMaster(const int & host, int port)
++ void ClearMaster()
++ class Status GetNamespace(const int & ns, int *token)
++ class Status AddNamespace(const int & ns, const int & token)
++ class Status SetNamespace(const int & ns, const int & token)
++ class Status DelNamespace(const int & ns)
+}
+
+class Config::anonymous {
++ int block_size
++ _Bool cache_index_and_filter_blocks
++ int metadata_block_cache_size
++ int subkey_block_cache_size
++ _Bool share_metadata_and_subkey_block_cache
++ int row_cache_size
++ int max_open_files
++ int write_buffer_size
++ int max_write_buffer_number
++ int max_background_compactions
++ int max_background_flushes
++ int max_sub_compactions
++ int stats_dump_period_sec
++ _Bool enable_pipelined_write
++ int delayed_write_rate
++ int compaction_readahead_size
++ int target_file_size_base
++ int WAL_ttl_seconds
++ int WAL_size_limit_MB
++ int max_total_wal_size
++ int level0_slowdown_writes_trigger
++ int level0_stop_writes_trigger
++ int level0_file_num_compaction_trigger
++ int compression
++ _Bool disable_auto_compactions
++ _Bool enable_blob_files
++ int min_blob_size
++ int blob_file_size
++ _Bool enable_blob_garbage_collection
++ int blob_garbage_collection_age_cutoff
++ int max_bytes_for_level_base
++ int max_bytes_for_level_multiplier
++ _Bool level_compaction_dynamic_level_bytes
+}
+
+class ConfigField {
++ int line_number
++ _Bool readonly
++ validate_fn validate
++ callback_fn callback
++ int ToString()
++ class Status Set(const int & v)
++ class Status ToNumber(int *n)
++ class Status ToBool(_Bool *b)
+}
+
+class StringField {
++ int ToString()
++ class Status Set(const int & v)
+}
+
+class IntField {
++ int min_
++ int max_
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class Int64Field {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class YesNoField {
++ int ToString()
++ class Status ToBool(_Bool *b)
++ class Status Set(const int & v)
+}
+
+class EnumField {
++ int ToString()
++ class Status ToNumber(int *n)
++ class Status Set(const int & v)
+}
+
+class ConnContext {
++ class Worker *owner
++ int fd
+}
+
+class Cron {
++ class Status SetScheduleTime(const int & args)
++ _Bool IsTimeMatch(struct tm *tm)
++ int ToString()
++ _Bool IsEnabled()
+}
+
+class DBScanInfo {
++ int last_scan_time
++ struct KeyNumStats key_num_stats
++ _Bool is_scanning
+}
+
+class Engine::Storage
+
+class Engine::Storage::ReplDataManager {
++ class Status GetFullReplDataInfo(class Engine::Storage *storage, int *files)
++ int OpenDataFile(class Engine::Storage *storage, const int & rel_file, int *file_size)
++ class Status CleanInvalidFiles(class Engine::Storage *storage, const int & dir, int valid_files)
++ struct Engine::Storage::ReplDataManager::MetaInfo ParseMetaAndSave(class Engine::Storage *storage, int meta_id, struct evbuffer *evbuf)
++ int NewTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ class Status SwapTmpFile(class Engine::Storage *storage, const int & dir, const int & repl_file)
++ _Bool FileExists(class Engine::Storage *storage, const int & dir, const int & repl_file, int crc)
+}
+
+class Engine::Storage::ReplDataManager::CheckpointInfo {
++ int is_creating
++ int create_time
++ int access_time
+}
+
+class Engine::Storage::ReplDataManager::MetaInfo {
++ int timestamp
++ int seq
++ int meta_data
+}
+
+class FeedSlaveThread {
++ class Status Start()
++ void Stop()
++ void Join()
++ _Bool IsStopped()
++ Redis::Connection *GetConn()
++ int GetCurrentReplSeq()
+}
+
+class HashMetadata {
+}
+
+class InternalKey {
++ class rocksdb::Slice GetNamespace()
++ class rocksdb::Slice GetKey()
++ class rocksdb::Slice GetSubKey()
++ int GetVersion()
++ void Encode(int *out)
++ _Bool operator==(const class InternalKey & that)
+}
+
+class KeyNumStats {
++ int n_key
++ int n_expires
++ int n_expired
++ int avg_ttl
+}
+
+class ListMetadata {
++ int head
++ int tail
++ void Encode(int *dst)
++ rocksdb::Status Decode(const int & bytes)
+}
+
+class LockGuard {
+}
+
+class LockManager {
++ unsigned int Size()
++ void Lock(const rocksdb::Slice & key)
++ void UnLock(const rocksdb::Slice & key)
+}
+
+class LogCollector <T> {
++ int Size()
++ void Reset()
++ void SetMaxEntries(int max_entries)
++ void PushEntry(T *entry)
++ int GetLatestEntries(int cnt)
+}
+
+class PerfEntry {
++ int id
++ int time
++ int duration
++ int cmd_name
++ int perf_context
++ int iostats_context
++ int ToRedisString()
+}
+
+class RWLock::ReadLock {
+}
+
+class RWLock::ReadWriteLock {
++ void LockWrite()
++ void UnLockWrite()
++ void LockRead()
++ void UnLockRead()
+}
+
+class RWLock::WriteLock {
+}
+
+class Redis::CommandAttributes
+
+class Redis::Commander {
++ void SetAttributes(const struct Redis::CommandAttributes *attributes)
++ const struct Redis::CommandAttributes *GetAttributes()
++ void SetArgs(const int & args)
++ const int *Args()
++ class Status Parse(const int & args)
++ class Status Execute(class Server *svr, class Redis::Connection *conn, int *output)
+}
+
+class Redis::Connection
+
+class Redis::Database {
++ rocksdb::Status GetMetadata(enum RedisType type, const class rocksdb::Slice & ns_key, class Metadata *metadata)
++ rocksdb::Status GetRawMetadata(const class rocksdb::Slice & ns_key, int *bytes)
++ rocksdb::Status GetRawMetadataByUserKey(const class rocksdb::Slice & user_key, int *bytes)
++ rocksdb::Status Expire(const class rocksdb::Slice & user_key, int timestamp)
++ rocksdb::Status Del(const class rocksdb::Slice & user_key)
++ rocksdb::Status Exists(const int & keys, int *ret)
++ rocksdb::Status TTL(const class rocksdb::Slice & user_key, int *ttl)
++ rocksdb::Status Type(const class rocksdb::Slice & user_key, enum RedisType *type)
++ rocksdb::Status Dump(const class rocksdb::Slice & user_key, int *infos)
++ rocksdb::Status FlushDB()
++ rocksdb::Status FlushAll()
++ void GetKeyNumStats(const int & prefix, struct KeyNumStats *stats)
++ void Keys(int prefix, int *keys, struct KeyNumStats *stats)
++ rocksdb::Status Scan(const int & cursor, int limit, const int & prefix, int *keys, int *end_cursor)
++ rocksdb::Status RandomKey(const int & cursor, int *key)
++ void AppendNamespacePrefix(const class rocksdb::Slice & user_key, int *output)
++ rocksdb::Status FindKeyRangeWithPrefix(const int & prefix, const int & prefix_end, int *begin, int *end, rocksdb::ColumnFamilyHandle *cf_handle)
++ rocksdb::Status ClearKeysOfSlot(const rocksdb::Slice & ns, int slot)
++ rocksdb::Status GetSlotKeysInfo(int slot, int *slotskeys, int *keys, int count)
+}
+
+class Redis::SubKeyScanner {
++ rocksdb::Status Scan(enum RedisType type, const class rocksdb::Slice & user_key, const int & cursor, int limit, const int & subkey_prefix, int *keys, int *values)
+}
+
+class SlotImport {
++ _Bool Start(int fd, int slot)
++ _Bool Success(int slot)
++ _Bool Fail(int slot)
++ void StopForLinkError(int fd)
++ int GetSlot()
++ int GetStatus()
++ void GetImportInfo(int *info)
+}
+
+class SlotMigrate {
++ class Status CreateMigrateHandleThread()
++ void *Loop(void *arg)
++ class Status MigrateStart(class Server *svr, const int & node_id, const int dst_ip, int dst_port, int slot, int speed, int pipeline_size, int seq_gap)
++ void ReleaseForbiddenSlot()
++ void SetMigrateSpeedLimit(int speed)
++ void SetPipelineSize(int size)
++ void SetSequenceGapSize(int size)
++ void SetMigrateStopFlag(_Bool state)
++ int GetMigrateState()
++ int GetMigrateStateMachine()
++ int GetForbiddenSlot()
++ int GetMigratingSlot()
++ void GetMigrateInfo(int *info)
+}
+
+class Redis::Database::LatestSnapShot {
++ const rocksdb::Snapshot *GetSnapShot()
+}
+
+class Redis::Request {
++ class Status Tokenize(struct evbuffer *input)
++ const int & GetCommands()
++ void ClearCommands()
+}
+
+class Redis::WriteBatchLogData {
++ enum RedisType GetRedisType()
++ int *GetArguments()
++ int Encode()
++ class Status Decode(const rocksdb::Slice & blob)
+}
+
+class ReplicationThread {
++ class Status Start(int && pre_fullsync_cb, int && post_fullsync_cb)
++ void Stop()
++ enum ReplState State()
++ int LastIOTime()
+}
+
+class ReplicationThread::CallbacksStateMachine {
++ void Start()
++ void Stop()
++ void EvCallback(struct bufferevent *bev, void *ctx)
++ void ConnEventCB(struct bufferevent *bev, int events, void *state_machine_ptr)
++ void SetReadCB(struct bufferevent *bev, bufferevent_data_cb cb, void *state_machine_ptr)
++ void SetWriteCB(struct bufferevent *bev, bufferevent_data_cb cb, void *state_machine_ptr)
+}
+
+class Scheduler {
++ int minute
++ int hour
++ int mday
++ int month
++ int wday
++ int ToString()
+}
+
+class Server
+
+class SetMetadata {
+}
+
+class SlotInfo {
++ int start
++ int end
++ int nodes
+}
+
+class SlotInfo::NodeInfo {
++ int host
++ int port
++ int id
+}
+
+class SlotMigrateJob {
++ int slot_fd_
++ int migrate_slot_
++ int dst_ip_
++ int dst_port_
++ int speed_limit_
++ int pipeline_size_
++ int seq_gap_
+}
+
+class SlowEntry {
++ int id
++ int time
++ int duration
++ int args
++ int ToRedisString()
+}
+
+class SortedintMetadata {
+}
+
+class Stats {
++ int total_calls
++ int in_bytes
++ int out_bytes
++ int inst_metrics
++ int fullsync_counter
++ int psync_err_counter
++ int psync_ok_counter
++ int commands_stats
++ void IncrCalls(const int & command_name)
++ void IncrLatency(int latency, const int & command_name)
++ void IncrInbondBytes(int bytes)
++ void IncrOutbondBytes(int bytes)
++ void IncrFullSyncCounter()
++ void IncrPSyncErrCounter()
++ void IncrPSyncOKCounter()
++ int GetMemoryRSS()
++ int GetTimeStamp()
++ void TrackInstantaneousMetric(int metric, int current_reading)
++ int GetInstantaneousMetric(int metric)
+}
+
+class Status {
++ _Bool IsOK()
++ _Bool IsNotFound()
++ _Bool IsImorting()
++ int Msg()
++ class Status OK()
+}
+
+class Task {
++ int callback
++ void *arg
+}
+
+class TaskRunner {
++ class Status Publish(struct Task task)
++ int QueueSize()
++ void Start()
++ void Stop()
++ void Join()
++ void Purge()
+}
+
+class Worker
+
+class WorkerThread {
++ class Worker *GetWorker()
++ void Start()
++ void Stop()
++ void Join()
+}
+
+class WriteBatchHandler {
++ rocksdb::Status PutCF(int column_family_id, const rocksdb::Slice & key, const rocksdb::Slice & value)
++ enum WriteBatchType Type()
++ int Key()
++ int Value()
+}
+
+class rocksdb::WriteBatch::Handler {
++ class rocksdb::Status PutCF(int column_family_id, const class rocksdb::Slice & key, const class rocksdb::Slice & value)
++ void Put(const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status DeleteCF(int column_family_id, const class rocksdb::Slice & key)
++ void Delete(const class rocksdb::Slice & )
++ class rocksdb::Status SingleDeleteCF(int column_family_id, const class rocksdb::Slice & key)
++ void SingleDelete(const class rocksdb::Slice & )
++ class rocksdb::Status DeleteRangeCF(int , const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status MergeCF(int column_family_id, const class rocksdb::Slice & key, const class rocksdb::Slice & value)
++ void Merge(const class rocksdb::Slice & , const class rocksdb::Slice & )
++ class rocksdb::Status PutBlobIndexCF(int , const class rocksdb::Slice & , const class rocksdb::Slice & )
++ void LogData(const class rocksdb::Slice & blob)
++ class rocksdb::Status MarkBeginPrepare(_Bool )
++ class rocksdb::Status MarkEndPrepare(const class rocksdb::Slice & )
++ class rocksdb::Status MarkNoop(_Bool )
++ class rocksdb::Status MarkRollback(const class rocksdb::Slice & )
++ class rocksdb::Status MarkCommit(const class rocksdb::Slice & )
++ _Bool Continue()
+}
+
+class ZSetMetadata {
+}
+
+class anonymous {
++ int channel
++ int subscribe_num
+}
+
+class command_stat {
++ int calls
++ int latency
+}
+
+class configEnum {
++ const char *name
++ const int val
+}
+
+class inst_metric {
++ int last_sample_time
++ int last_sample_count
++ int [16] samples
++ int idx
+}
+
+BitmapMetadata -up-|> Metadata
+StringField -up-|> ConfigField
+IntField -up-|> ConfigField
+Int64Field -up-|> ConfigField
+YesNoField -up-|> ConfigField
+EnumField -up-|> ConfigField
+HashMetadata -up-|> Metadata
+ListMetadata -up-|> Metadata
+Redis::SubKeyScanner -up-|> Redis::Database
+SlotImport -up-|> Redis::Database
+SlotMigrate -up-|> Redis::Database
+SetMetadata -up-|> Metadata
+SortedintMetadata -up-|> Metadata
+WriteBatchHandler -up-|> rocksdb::WriteBatch::Handler
+ZSetMetadata -up-|> Metadata
+@enduml

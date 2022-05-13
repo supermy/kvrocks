@@ -49,6 +49,7 @@ class Stats {
   Stats();
   void IncrCalls(const std::string &command_name);
   void IncrLatency(uint64_t latency, const std::string &command_name);
+  // 添加值。在 atomic 对象存储的现有值。
   void IncrInbondBytes(uint64_t bytes) { in_bytes.fetch_add(bytes, std::memory_order_relaxed); }
   void IncrOutbondBytes(uint64_t bytes) { out_bytes.fetch_add(bytes, std::memory_order_relaxed); }
   void IncrFullSyncCounter() { fullsync_counter.fetch_add(1, std::memory_order_relaxed); }
