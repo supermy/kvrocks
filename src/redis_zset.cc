@@ -13,12 +13,18 @@ rocksdb::Status ZSet::GetMetadata(const Slice &ns_key, ZSetMetadata *metadata) {
   return Database::GetMetadata(kRedisZSet, ns_key, metadata);
 }
 
+/* ZSET_INCR
+Redis Zadd 命令用于将一个或多个成员元素及其分数值加入到有序集当中。
+如果某个成员已经是有序集的成员，那么更新这个成员的分数值，并通过重新插入这个成员元素，来保证该成员在正确的位置上。
+分数值可以是整数值或双精度浮点数。
+如果有序集合 key 不存在，则创建一个空的有序集并执行 ZADD 操作。
+当 key 存在但不是有序集类型时，返回一个错误。 */
 rocksdb::Status ZSet::Add(const Slice &user_key, uint8_t flags, std::vector<MemberScore> *mscores, int *ret) {
   *ret = 0;
 
   std::string ns_key;
   AppendNamespacePrefix(user_key, &ns_key);
-
+// meta type ttl size
   LockGuard guard(storage_->GetLockManager(), ns_key);
   ZSetMetadata metadata;
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
@@ -28,8 +34,9 @@ rocksdb::Status ZSet::Add(const Slice &user_key, uint8_t flags, std::vector<Memb
   rocksdb::WriteBatch batch;
   WriteBatchLogData log_data(kRedisZSet);
   batch.PutLogData(log_data.Encode());
+
   std::string member_key;
-  std::set<std::string> added_member_keys;
+  std::set<std::string> added_member_keys; //member_keys
   for (int i = static_cast<int>(mscores->size()-1); i >= 0; i--) {
     InternalKey(ns_key, (*mscores)[i].member, metadata.version,
                 storage_->IsSlotIdEncoded()).Encode(&member_key);
@@ -43,46 +50,57 @@ rocksdb::Status ZSet::Add(const Slice &user_key, uint8_t flags, std::vector<Memb
     // The root cause of this issue was the score key  was composed by member and score,
     // so the last one can't overwrite the previous when the score was different.
     // A simple workaround was add those members with reversed order and skip the member if has added.
-    if (added_member_keys.find(member_key) != added_member_keys.end()) {
+    if (added_member_keys.find(member_key) != added_member_keys.end()) { //去重
       continue;
     }
     added_member_keys.insert(member_key);
 
     if (metadata.size > 0) {
       std::string old_score_bytes;
-      s = db_->Get(rocksdb::ReadOptions(), member_key, &old_score_bytes);
+      s = db_->Get(rocksdb::ReadOptions(), member_key, &old_score_bytes); //
       if (!s.ok() && !s.IsNotFound()) return s;
-      if (s.ok()) {
+      if (s.ok()) {  //member_key存在的处理逻辑  merge 更新分数取回原有分数 batch是顺序串行执行？
         double old_score = DecodeDouble(old_score_bytes.data());
-        if (flags == ZSET_INCR) {
-          (*mscores)[i].score += old_score;
+        if (flags == ZSET_INCR) { //ZSET_INCR
+          (*mscores)[i].score += old_score;  
+          // 判断是否为非数字的std::isnan
           if (std::isnan((*mscores)[i].score)) {
             return rocksdb::Status::InvalidArgument("resulting score is not a number (NaN)");
           }
         }
+        // 数据相同跳过
         if ((*mscores)[i].score != old_score) {
+          // merge and batch 是否有序 put null==delete ?
           old_score_bytes.append((*mscores)[i].member);
           std::string old_score_key;
           InternalKey(ns_key, old_score_bytes, metadata.version, storage_->IsSlotIdEncoded()).Encode(&old_score_key);
-          batch.Delete(score_cf_handle_, old_score_key);
+          batch.Delete(score_cf_handle_, old_score_key); //old_score_key 删除分数主键
+
           std::string new_score_bytes, new_score_key;
           PutDouble(&new_score_bytes, (*mscores)[i].score);
-          batch.Put(member_key, new_score_bytes);
+          batch.Put(member_key, new_score_bytes); //member_key
+
           new_score_bytes.append((*mscores)[i].member);
           InternalKey(ns_key, new_score_bytes, metadata.version, storage_->IsSlotIdEncoded()).Encode(&new_score_key);
-          batch.Put(score_cf_handle_, new_score_key, Slice());
+          batch.Put(score_cf_handle_, new_score_key, Slice()); //new_score_key
         }
         continue;
       }
     }
+
+//member_key新增的处理逻辑
     std::string score_bytes, score_key;
     PutDouble(&score_bytes, (*mscores)[i].score);
-    batch.Put(member_key, score_bytes);
+    batch.Put(member_key, score_bytes); //member_key
+
+// score_key
     score_bytes.append((*mscores)[i].member);
     InternalKey(ns_key, score_bytes, metadata.version, storage_->IsSlotIdEncoded()).Encode(&score_key);
     batch.Put(score_cf_handle_, score_key, Slice());
     added++;
   }
+
+  //meta size
   if (added > 0) {
     *ret = added;
     metadata.size += added;
@@ -93,19 +111,21 @@ rocksdb::Status ZSet::Add(const Slice &user_key, uint8_t flags, std::vector<Memb
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
+//meta size
 rocksdb::Status ZSet::Card(const Slice &user_key, int *ret) {
   *ret = 0;
 
   std::string ns_key;
   AppendNamespacePrefix(user_key, &ns_key);
 
-  ZSetMetadata metadata(false);
+  ZSetMetadata metadata(false);//不构造版本
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
   if (!s.ok()) return s.IsNotFound()? rocksdb::Status::OK():s;
-  *ret = metadata.size;
+  *ret = metadata.size;  //meta size
   return rocksdb::Status::OK();
 }
 
+// Redis Zcount 命令用于计算有序集合中指定分数区间的成员数量。
 rocksdb::Status ZSet::Count(const Slice &user_key, const ZRangeSpec &spec, int *ret) {
   *ret = 0;
   return RangeByScore(user_key, spec, nullptr, ret);
@@ -185,6 +205,18 @@ rocksdb::Status ZSet::Pop(const Slice &user_key, int count, bool min, std::vecto
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
+/* Redis Zrange 返回有序集中，指定区间内的成员。 
+
+memberkey=ns+userkey+memberkeytype+member
+方便rangebyindex-score  read_options.iterate_upper_bound read_options.iterate_lower_bound iter->Seek(start_key);
+scorekey=ns+userkey+scoretype+score+member
+
+其中成员的位置按分数值递增(从小到大)来排序。
+具有相同分数值的成员按字典序(lexicographical order )来排列。
+如果你需要成员按
+值递减(从大到小)来排列，请使用 ZREVRANGE 命令。
+下标参数 start 和 stop 都以 0 为底，也就是说，以 0 表示有序集第一个成员，以 1 表示有序集第二个成员，以此类推。
+你也可以使用负数下标，以 -1 表示最后一个成员， -2 表示倒数第二个成员，以此类推。 */
 rocksdb::Status ZSet::Range(const Slice &user_key, int start, int stop, uint8_t flags, std::vector<MemberScore>
 *mscores) {
   mscores->clear();
@@ -263,6 +295,7 @@ rocksdb::Status ZSet::Range(const Slice &user_key, int start, int stop, uint8_t 
   }
   return rocksdb::Status::OK();
 }
+
 
 rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
                                         ZRangeSpec spec,
@@ -385,12 +418,14 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   return rocksdb::Status::OK();
 }
 
+//按字典member排序范围获取清单；
 rocksdb::Status ZSet::RangeByLex(const Slice &user_key,
                                  ZRangeLexSpec spec,
                                  std::vector<std::string> *members,
                                  int *size) {
   if (size) *size = 0;
   if (members) members->clear();
+  //页尾
   if (spec.offset > -1 && spec.count == 0) {
       return rocksdb::Status::OK();
   }
@@ -402,12 +437,14 @@ rocksdb::Status ZSet::RangeByLex(const Slice &user_key,
   rocksdb::Status s = GetMetadata(ns_key, &metadata);
   if (!s.ok()) return s.IsNotFound() ? rocksdb::Status::OK() : s;
 
+//start_member reversed-对结果反向排序 version-membertype
   std::string start_member = spec.reversed ? spec.max : spec.min;
   std::string start_key, prefix_key, next_version_prefix_key;
   InternalKey(ns_key, start_member, metadata.version, storage_->IsSlotIdEncoded()).Encode(&start_key);
   InternalKey(ns_key, "", metadata.version, storage_->IsSlotIdEncoded()).Encode(&prefix_key);
   InternalKey(ns_key, "", metadata.version + 1, storage_->IsSlotIdEncoded()).Encode(&next_version_prefix_key);
 
+// 查询范围
   rocksdb::ReadOptions read_options;
   LatestSnapShot ss(db_);
   read_options.snapshot = ss.GetSnapShot();
@@ -426,7 +463,7 @@ rocksdb::Status ZSet::RangeByLex(const Slice &user_key,
   if (!spec.reversed) {
     iter->Seek(start_key);
   } else {
-    if (spec.max_infinite) {
+    if (spec.max_infinite) {//?
       iter->SeekToLast();
     } else {
       iter->SeekForPrev(start_key);
@@ -435,21 +472,25 @@ rocksdb::Status ZSet::RangeByLex(const Slice &user_key,
 
   for (;
        iter->Valid() && iter->key().starts_with(prefix_key);
+       //next prev
        (!spec.reversed ? iter->Next() : iter->Prev())) {
     InternalKey ikey(iter->key(), storage_->IsSlotIdEncoded());
     Slice member = ikey.GetSubKey();
-    if (spec.reversed) {
+    if (spec.reversed) {//反转
         if (member.ToString() < spec.min || (spec.minex && member == spec.min)) {
             break;
         }
         if ((spec.maxex && member == spec.max) || (!spec.max_infinite && member.ToString() > spec.max)) {
             continue;
         }
-    } else {
+    } else {//非反转
        if (spec.minex && member == spec.min) continue;  // the min member was exclusive
        if ((spec.maxex && member == spec.max) || (!spec.max_infinite && member.ToString() > spec.max)) break;
     }
+
+    //分页
     if (spec.offset >= 0 && pos++ < spec.offset) continue;
+    //删除
     if (spec.removed) {
       std::string score_bytes = iter->value().ToString();
       score_bytes.append(member.ToString());
@@ -474,7 +515,7 @@ rocksdb::Status ZSet::RangeByLex(const Slice &user_key,
   }
   return rocksdb::Status::OK();
 }
-
+//get
 rocksdb::Status ZSet::Score(const Slice &user_key, const Slice &member, double *score) {
   std::string ns_key;
   AppendNamespacePrefix(user_key, &ns_key);
@@ -516,11 +557,12 @@ rocksdb::Status ZSet::Remove(const Slice &user_key, const std::vector<Slice> &me
     if (s.ok()) {
       score_bytes.append(member.ToString());
       InternalKey(ns_key, score_bytes, metadata.version, storage_->IsSlotIdEncoded()).Encode(&score_key);
-      batch.Delete(member_key);
-      batch.Delete(score_cf_handle_, score_key);
+      batch.Delete(member_key); //member_key merge-put null->return value
+      batch.Delete(score_cf_handle_, score_key);//score_key
       removed++;
     }
   }
+  //meta size
   if (removed > 0) {
     *ret = removed;
     metadata.size -= removed;

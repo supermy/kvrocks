@@ -19,7 +19,7 @@ const double kMinScore = (std::numeric_limits<float>::is_iec559 ?
 const double kMaxScore = (std::numeric_limits<float>::is_iec559 ?
       std::numeric_limits<double>::infinity() : std::numeric_limits<double>::max());
 
-typedef struct ZRangeSpec {
+typedef struct ZRangeSpec { //最小分数 最大分数
   double min, max;
   bool minex, maxex; /* are min or max exclusive */
   int offset, count;
@@ -38,7 +38,7 @@ typedef struct ZRangeLexSpec {
   bool minex, maxex; /* are min or max exclusive */
   bool max_infinite; /* are max infinite */
   int offset, count;
-  bool removed, reversed;
+  bool removed, reversed; //删除 反转
   ZRangeLexSpec() {
     minex = maxex = false;
     max_infinite = false;
