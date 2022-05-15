@@ -14,8 +14,10 @@ enum AggregateMethod {
   kAggregateMax
 };
 
+// 返回数值类型 T 可表示的最低有限值
 const double kMinScore = (std::numeric_limits<float>::is_iec559 ?
       -std::numeric_limits<double>::infinity() : std::numeric_limits<double>::lowest());
+// numeric_limits 类模板提供查询各种算术类型属性的标准化方式（例如 int 类型的最大可能值是 std::numeric_limits<int>::max() ）。
 const double kMaxScore = (std::numeric_limits<float>::is_iec559 ?
       std::numeric_limits<double>::infinity() : std::numeric_limits<double>::max());
 

@@ -242,7 +242,7 @@ rocksdb::Status ZSet::Range(const Slice &user_key, int start, int stop, uint8_t 
   std::string score_bytes;
   double score = !reversed ? kMinScore : kMaxScore;
   PutDouble(&score_bytes, score);
-  std::string start_key, prefix_key, next_verison_prefix_key;
+  std::string start_key, prefix_key, next_verison_prefix_key; //bound=userkey+socretype+socre+member
   InternalKey(ns_key, score_bytes, metadata.version, storage_->IsSlotIdEncoded()).Encode(&start_key);
   InternalKey(ns_key, "", metadata.version, storage_->IsSlotIdEncoded()).Encode(&prefix_key);
   InternalKey(ns_key, "", metadata.version + 1, storage_->IsSlotIdEncoded()).Encode(&next_verison_prefix_key);
@@ -271,8 +271,8 @@ rocksdb::Status ZSet::Range(const Slice &user_key, int start, int stop, uint8_t 
       !reversed ? iter->Next() : iter->Prev()) {
     InternalKey ikey(iter->key(), storage_->IsSlotIdEncoded());
     Slice score_key = ikey.GetSubKey();
-    GetDouble(&score_key, &score);
-    if (count >= start) {
+    GetDouble(&score_key, &score);//提取score_key
+    if (count >= start) {  //idx 先提取清单；后批量删除
       if (removed) {
         std::string sub_key;
         InternalKey(ns_key, score_key, metadata.version, storage_->IsSlotIdEncoded()).Encode(&sub_key);
@@ -296,7 +296,7 @@ rocksdb::Status ZSet::Range(const Slice &user_key, int start, int stop, uint8_t 
   return rocksdb::Status::OK();
 }
 
-
+//按分数，处理负分数
 rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
                                         ZRangeSpec spec,
                                         std::vector<MemberScore> *mscores,
@@ -318,7 +318,11 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   //    b. to make positive double greater than native double in lexicographical order, score
   //       is required encoding before stored in rocksdb. encoding details see PutDouble()
   //    c. for convenience, user_score and inner_score respectively represent before and after encoding
-  //
+  ////让我们先熟悉一下score：
+//a.zset成员的分数用double表示，在rocksdb中占8字节
+//b.在词典编纂顺序上，使正双精度大于本机双精度，分数存储到rocksdb之前需要进行编码。编码详细信息请参见PutDouble（）
+//c.为方便起见，用户评分和内部评分分别代表编码前后
+//
   // next lexicographical ordered inner_score of max:
   //    a. we can think of inner_score as a fixed 8-byte string. logically, the next lexicographical
   //       ordered inner_score of max_inner_score is 'max_inner_score + 1' if we assume no overflow.
@@ -329,7 +333,18 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   //       incr u64
   //       memcpy u64 to max_next_inner_score
   //    it may not be hard to understand about how to get max_next_inner_score
-  //
+
+  ////下一个按字典顺序排列的最大内_分数：
+//答：我们可以将内部_分数视为一个固定的8字节字符串。从逻辑上讲，下一个词典
+//如果我们假设没有溢出，则最大内部分数的有序内部分数为“最大内部分数+1”。
+//“最大内部分数+1”表示二进制增量。
+//b.实现二进制增量“最大内部分数+1”
+//使用PutDouble（）编码max（max_user_score）到max_internal_score
+//memcpy最高内部分数为u64（uint64）
+//incr u64
+//memcpy u64至最高下一个内部分数
+//也许不难理解如何获得max_next_inner_分数
+//
   // directly generate max_next_user_score of max_next_inner_score:
   //    a. give a key argument first:
   //       for positive score, user_score is positively correlated with inner_score in lexicographical order
@@ -340,6 +355,16 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   //       for negative max_user_score, max_next_user_score is 'max_user_score - 1'
   // Note: fortunately, there is no overflow in fact. more details see binary encoding of double
   // binary encoding of double: https://en.wikipedia.org/wiki/Double-precision_floating-point_format
+// //直接生成max_next_internal_score的max_next_user_分数：
+//a.首先给出一个关键论点：
+//对于正分数，用户分数与内部分数在字典顺序上呈正相关
+//对于负面分数，用户分数与内部分数按字典顺序呈负相关
+//更多详细信息请参见PutDouble（）
+//b.获取max_next_用户的max_next_internal_分数：
+//对于正的max_user_分数，max_next_user_分数为“max_user_分数+1”
+//对于负的max_user_分数，max_next_user_分数为“max_user_分数-1”
+//注：幸运的是，实际上没有溢出。更多详细信息请参见双精度二进制编码
+//双精度二进制编码：https://en.wikipedia.org/wiki/Double-precision_floating-point_format
 
   // generate next possible score of max
   int64_t i64 = 0;
@@ -360,10 +385,10 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   rocksdb::ReadOptions read_options;
   LatestSnapShot ss(db_);
   read_options.snapshot = ss.GetSnapShot();
-  rocksdb::Slice upper_bound(next_verison_prefix_key);
+  rocksdb::Slice upper_bound(next_verison_prefix_key);//upper_bound
   read_options.iterate_upper_bound = &upper_bound;
   rocksdb::Slice lower_bound(prefix_key);
-  read_options.iterate_lower_bound = &lower_bound;
+  read_options.iterate_lower_bound = &lower_bound;//lower_bound
   read_options.fill_cache = false;
 
   int pos = 0;
@@ -371,6 +396,7 @@ rocksdb::Status ZSet::RangeByScore(const Slice &user_key,
   rocksdb::WriteBatch batch;
   WriteBatchLogData log_data(kRedisZSet);
   batch.PutLogData(log_data.Encode());
+
   if (!spec.reversed) {
     iter->Seek(start_key);
   } else {
@@ -670,6 +696,7 @@ rocksdb::Status ZSet::Overwrite(const Slice &user_key, const std::vector<MemberS
   return storage_->Write(rocksdb::WriteOptions(), &batch);
 }
 
+//交集
 rocksdb::Status ZSet::InterStore(const Slice &dst,
                                  const std::vector<KeyWeight> &keys_weights,
                                  AggregateMethod aggregate_method,
@@ -730,6 +757,7 @@ rocksdb::Status ZSet::InterStore(const Slice &dst,
   return rocksdb::Status::OK();
 }
 
+//并集
 rocksdb::Status ZSet::UnionStore(const Slice &dst,
                                  const std::vector<KeyWeight> &keys_weights,
                                  AggregateMethod aggregate_method,
@@ -782,6 +810,7 @@ rocksdb::Status ZSet::UnionStore(const Slice &dst,
   return rocksdb::Status::OK();
 }
 
+//协议处理
 Status ZSet::ParseRangeSpec(const std::string &min, const std::string &max, ZRangeSpec *spec) {
   const char *sptr = nullptr;
   char *eptr = nullptr;
