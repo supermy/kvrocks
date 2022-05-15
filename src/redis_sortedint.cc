@@ -3,7 +3,7 @@
 #include <map>
 #include <iostream>
 #include <limits>
-
+// userkey+id_int
 namespace Redis {
 
 rocksdb::Status Sortedint::GetMetadata(const Slice &ns_key, SortedintMetadata *metadata) {
@@ -88,6 +88,7 @@ rocksdb::Status Sortedint::Card(const Slice &user_key, int *ret) {
   return rocksdb::Status::OK();
 }
 
+// 分页查询
 rocksdb::Status Sortedint::Range(const Slice &user_key,
                                uint64_t cursor_id,
                                uint64_t offset,
@@ -117,9 +118,9 @@ rocksdb::Status Sortedint::Range(const Slice &user_key,
   LatestSnapShot ss(db_);
   read_options.snapshot = ss.GetSnapShot();
   rocksdb::Slice upper_bound(next_version_prefix);
-  read_options.iterate_upper_bound = &upper_bound;
+  read_options.iterate_upper_bound = &upper_bound;//
   rocksdb::Slice lower_bound(prefix);
-  read_options.iterate_lower_bound = &lower_bound;
+  read_options.iterate_lower_bound = &lower_bound;//
   read_options.fill_cache = false;
 
   uint64_t id, pos = 0;
@@ -137,7 +138,7 @@ rocksdb::Status Sortedint::Range(const Slice &user_key,
   delete iter;
   return rocksdb::Status::OK();
 }
-
+//
 rocksdb::Status Sortedint::RangeByValue(const Slice &user_key,
                                         SortedintRangeSpec spec,
                                         std::vector<uint64_t> *ids,
@@ -197,7 +198,7 @@ rocksdb::Status Sortedint::RangeByValue(const Slice &user_key,
   delete iter;
   return rocksdb::Status::OK();
 }
-
+//mexist
 rocksdb::Status Sortedint::MExist(const Slice &user_key, std::vector<uint64_t> ids, std::vector<int> *exists) {
   std::string ns_key;
   AppendNamespacePrefix(user_key, &ns_key);

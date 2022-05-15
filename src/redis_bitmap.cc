@@ -5,7 +5,7 @@
 #include <algorithm>
 
 #include "redis_bitmap_string.h"
-
+// 分段存储
 namespace Redis {
 
 const uint32_t kBitmapSegmentBits = 1024 * 8;
